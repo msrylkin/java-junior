@@ -1,9 +1,9 @@
-
+﻿
 Программа подготовки Java Junior Developer  
 80 hr. course + 24 hr. project = 104 hr.
 
 ---
-
+# Rylkin Maksim
 # Introduction to Java and Java Technology (1/0.5) 
 - Introduction to Java. Benefits. 
 - JDK, JVM. 
