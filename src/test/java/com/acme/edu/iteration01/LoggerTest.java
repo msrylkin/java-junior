@@ -9,6 +9,8 @@ import java.io.*;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
+
+    private static final String SEP = System.lineSeparator();
     @Before
     public void setUpSystemOut() throws IOException {
         captureSysout();
@@ -25,7 +27,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutEquals("primitive: 1"+SEP+"primitive: 0"+SEP+"primitive: -1"+SEP);
         //endregion
     }
 
@@ -48,6 +50,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     /*
     TODO: implement Logger solution to match specification as tests
 
+*/
     @Test
     public void shouldLogChar() throws IOException {
         //region when
@@ -61,7 +64,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("b");
         //endregion
     }
-
+/*
     @Test
     public void shouldLogString() throws IOException {
         //region when
@@ -75,6 +78,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
+    */
 
     @Test
     public void shouldLogBoolean() throws IOException {
@@ -89,7 +93,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("false");
         //endregion
     }
-
+/*
     @Test
     public void shouldLogReference() throws IOException {
         //region when
