@@ -10,12 +10,20 @@ public class Logger {
     public static final String PRIMITIVE = "primitive: ";
     public static final String CHAR = "char: ";
     public static final String STRING = "string: ";
+    private static int sum = 0;
+    private static boolean summFlag = false;
+    private static String lastString = null;
+    private static int strCounter = 0;
+
 
     /**
      *
      * @param word - type of message
      * @param message - message
      */
+//    public static void main(String[] args) {
+//        Logger.log("asd");
+//    }
     private static void mySout(String word,String message) {
         System.out.println(word + message);
     }
@@ -26,6 +34,7 @@ public class Logger {
      *
      * @param message - message for print
      */
+
     public static void log(int message) {
         mySout(PRIMITIVE,String.valueOf(message));
     }
@@ -36,6 +45,21 @@ public class Logger {
      */
     public static void log(byte message) {
         mySout(PRIMITIVE,String.valueOf(message));
+    }
+
+    public static void log(byte number, boolean isNumberForSumm){
+        if (isNumberForSumm){
+            long test = (long)sum+number;
+            if (test>Byte.MAX_VALUE||test<Byte.MIN_VALUE){
+                Logger.log(sum,false);
+                Logger.log(number, false);
+                summFlag = false;
+            } else {
+                sum+=number;
+                summFlag = true; }
+        } else {
+            mySout("",number+"");
+        }
     }
 
     /**
@@ -62,7 +86,8 @@ public class Logger {
      */
 
     public static void log(String message) {
-        mySout(STRING,message);
+        Logger.log(message,true);
+        //mySout(STRING, message);
     }
 
     /**
@@ -71,6 +96,73 @@ public class Logger {
      */
     public static void log(Object object) {
         mySout(REFERENCE,object.toString());
+    }
+
+    public static void log(int number, boolean isNumberForSumm){
+        lastPrint();
+        if (isNumberForSumm){
+            long test = (long)sum+number;
+            if (test>Integer.MAX_VALUE||test<Integer.MIN_VALUE){
+                Logger.log(sum,false);
+                Logger.log(number, false);
+                summFlag = false;
+            } else {
+                sum+=number;
+                summFlag = true;
+            }
+        } else {
+            mySout("",number+"");
+        }
+    }
+
+
+    public static void log(String message, boolean isTypePrintNeeded){
+        if (summFlag){
+            mySout("",sum+"");
+            sum = 0;
+            summFlag = false;
+        }
+        if (!isTypePrintNeeded){
+            if (lastString!=null) {
+                if (lastString.equals(message)){
+                    strCounter++;
+                } else {
+                    if (strCounter==0){
+                        mySout("",lastString);
+                        strCounter++;
+                    }
+                    else{
+                        mySout("",lastString+" (x"+strCounter+")");
+                        strCounter = 0;
+                    }
+                    //mySout("",message);
+                    lastString = message;
+                }
+            }
+            lastString = message;
+        } else {
+            mySout(STRING,message);
+        }
+    }
+
+    private static void lastPrint(){
+        {
+            if (lastString!=null){
+            if (strCounter!=0){
+                mySout("",lastString+" (x"+strCounter+")");
+                strCounter = 0;
+            } else {
+                mySout("",lastString);
+            }
+            lastString = null;}
+        }
+    }
+
+    public static void close(){
+        Logger.sum = 0;
+        Logger.strCounter = 0;
+        Logger.lastString = null;
+        Logger.summFlag = false;
     }
 
     //endregion
