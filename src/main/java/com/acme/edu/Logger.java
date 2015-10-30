@@ -1,6 +1,8 @@
 package com.acme.edu;
 
 
+import java.util.Arrays;
+
 public class Logger {
 
     /**
@@ -96,6 +98,51 @@ public class Logger {
      */
     public static void log(Object object) {
         mySout(REFERENCE,object.toString());
+    }
+
+    public static void log(int[] arr){
+        Logger.log(arr,true);
+    }
+
+    public static void log(int[] arr, boolean isMark){
+        if (isMark){
+            System.out.print("primitives array: ");
+        }
+        System.out.print("{");
+        for (int i=0;i<arr.length;i++){
+            if (i==0){
+                System.out.print(arr[i]+",");
+            }else if (i==arr.length-1){
+                System.out.print(", "+arr[i]);
+            } else {
+                System.out.print(" "+arr[i]);
+            }
+        }
+        System.out.println("}");
+
+
+    }
+
+    public static void log(int[][] arr){
+        log(arr,true);
+    }
+
+    public static void log(int[][] arr,boolean isMark){
+        if (isMark){
+            System.out.println("primitives matrix: {");
+        }
+        for (int[] x : arr){
+            log(x,false);
+        }
+        System.out.println("}");
+    }
+
+    public static void log(int[][][] arr){
+
+    }
+
+    public static void log(int[][][] arr, boolean isMark){
+
     }
 
     public static void log(int number, boolean isNumberForSumm){
