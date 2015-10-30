@@ -19,6 +19,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @After
     public void tearDown() {
         resetOut();
+        Logger.close();
     }
 
     private static final String SEP = System.lineSeparator();
@@ -33,7 +34,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(2,true);
         Logger.log("str 2",false);
         Logger.log(0,false);
-        Logger.close();
+        //Logger.close();
         //endregion
 
         //region then
@@ -55,7 +56,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(Integer.MAX_VALUE,true);
         Logger.log("str 2",false);
         Logger.log(0,false);
-        Logger.close();
+        //Logger.close();
         //endregion
 
         //region then
@@ -78,7 +79,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log((byte)Byte.MAX_VALUE,true);
         Logger.log("str 2",false);
         Logger.log(0,false);
-        Logger.close();
+        //Logger.close();
         //endregion
 
         //region then
@@ -106,7 +107,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 3",false);
         Logger.log("str 3",false);
         Logger.log(0,false);
-        Logger.close();
+        //Logger.close();
         //endregion
 
         //region then
