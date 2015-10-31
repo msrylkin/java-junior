@@ -14,6 +14,7 @@ public class PrefixLogger extends Logger {
      * printing int with prefix
      * @param message - number for print
      */
+    @Override
     public void log(int message){
         System.out.println(Logger.PRIMITIVE + message);
     }
@@ -22,6 +23,7 @@ public class PrefixLogger extends Logger {
      * printing byte with prefix
      * @param message - number for print
      */
+    @Override
     public void log(byte message) {
         System.out.println(Logger.PRIMITIVE + message);
     }
@@ -31,6 +33,7 @@ public class PrefixLogger extends Logger {
      * printing string with prefix
      * @param message - str for printing
      */
+    @Override
     public void log(String message){
         System.out.println(STRING + message);
     }
@@ -38,8 +41,9 @@ public class PrefixLogger extends Logger {
     /**
      * I had to implement it.
      */
+    @Override
     public void close(){
-
+        throw new UnsupportedOperationException();
     }
 
 }

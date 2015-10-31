@@ -16,6 +16,7 @@ public class SumLogger extends Logger {
      * prints sum of int's
      * @param message - number for print
      */
+    @Override
     public void log(int message){
         printLast();
         long test = (long)message + sum;
@@ -27,9 +28,10 @@ public class SumLogger extends Logger {
     }
 
     /**
-     * prints sum of byte
+     * prints sum of byte's
      * @param message - number for print
      */
+    @Override
     public void log(byte message){
         printLast();
         long test = (long)sum + message;
@@ -44,6 +46,7 @@ public class SumLogger extends Logger {
      * prints counted strings
      * @param message - str for printing
      */
+    @Override
     public void log(String message){
         printSum();
         if (lastStr!=null){
@@ -59,6 +62,7 @@ public class SumLogger extends Logger {
     /**
      * method to clean local variables and print from buffer
      */
+    @Override
     public void close(){
         printLast();
         printSum();
