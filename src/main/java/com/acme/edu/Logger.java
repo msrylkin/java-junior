@@ -2,252 +2,102 @@ package com.acme.edu;
 
 
 
-public class Logger {
+public abstract class Logger {
 
     /**
      * String constants
      */
-    private static final String REFERENCE = "reference: ";
-    private static final String PRIMITIVE = "primitive: ";
-    private static final String CHAR = "char: ";
-    private static final String STRING = "string: ";
+    public static final String PRIMITIVES_ARRAY = "primitives array: ";
+    public static final String REFERENCE = "reference: ";
+    public static final String CHAR = "char: ";
+    public static final String PRIMITIVE = "primitive: ";
+    public static final String PRIMITIVES_MULTIMATRIX = "primitives multimatrix: {";
+    public static final String PRIMITIVES_MATRIX = "primitives matrix: ";
 
     /**
-     * temp flags and variables for sum and counter
+     * printing int or sum of int's
+     * @param message - number for print
      */
-    private static int sum = 0;
-    private static boolean summFlag = false;
-    private static String lastString = null;
-    private static int strCounter = 0;
-
-
-    //region logIntegerMethods
+    public abstract void log(int message);
 
     /**
-     * printing message with prefix
-     * @param message - message for print
+     * printing byte or sum of bytes
+     * @param message - number for print
      */
-    public static void log(int message) {
-        mySout(PRIMITIVE, String.valueOf(message));
+    public abstract void log(byte message);
+
+    /**
+     * printing String or String with counter
+     * @param message - str for printing
+     */
+    public abstract void log(String message);
+
+    /**
+     * close method, should be called after logging
+     */
+    public abstract void close();
+
+    /**
+     * printing boolean with prefix
+     * @param message - bool for printing
+     */
+    public void log(boolean message) {
+        System.out.println(PRIMITIVE + message);
     }
 
     /**
-     * if isNumberForSum true and next value is int, prints sum
-     * @param number - number for sum or printing
-     * @param isNumberForSum - if true, prints sum
+     * printing char with prefix
+     * @param message - char for printing
      */
-    public static void log(int number, boolean isNumberForSum){
-        lastPrint();
-        if (isNumberForSum){
-            long test = (long)sum+number;
-            if (test>Integer.MAX_VALUE||test<Integer.MIN_VALUE){
-                Logger.log(sum,false);
-                Logger.log(number, false);
-                summFlag = false;
-            } else {
-                sum+=number;
-                summFlag = true;
-            }
+    public void log(char message) {
+        System.out.println(CHAR + message);
+    }
+
+    /**
+     * printing object reference
+     * @param message - object for printing
+     */
+    public void log(Object message) {
+        System.out.println(REFERENCE + message.toString());
+    }
+
+    /**
+     * printing vararg of int's
+     * @param arr - vararg for print
+     */
+    public void log(int... arr) {
+        if (arr.length == 1) {
+            this.log(arr[0]);
         } else {
-            mySout("",number+"");
-        }
-    }
-
-    //endregion
-
-    //region logByteMethods
-    /**
-     * printing message with prefix
-     * @param message - message for print
-     */
-    public static void log(byte message) {
-        mySout(PRIMITIVE, String.valueOf(message));
-    }
-
-    /**
-     * if isNumberForSum true and next number byte, printing sum of numbers
-     * @param number - number for printing or summation
-     * @param isNumberForSum - if true, summarize with neht int value
-     */
-    public static void log(byte number, boolean isNumberForSum){
-        if (isNumberForSum){
-            long test = (long)sum+number;
-            if (test>Byte.MAX_VALUE||test<Byte.MIN_VALUE){
-                Logger.log(sum,false);
-                Logger.log(number, false);
-                summFlag = false;
-            } else {
-                sum+=number;
-                summFlag = true; }
-        } else {
-            mySout("",number+"");
-        }
-    }
-
-    //endregion
-
-    //region logBooleanMethods
-    /**
-     * printing message with prefix
-     * @param message - message for print
-     */
-
-    public static void log(boolean message) {
-        mySout(PRIMITIVE,String.valueOf(message));
-    }
-
-    //endregion
-
-    //region logCharMethods
-
-    /**
-     * printing message with prefix
-     * @param message - message for print
-     */
-    public static void log(char message) {
-        mySout(CHAR, String.valueOf(message));
-    }
-
-    //endregion
-
-    //region logStringMethods
-    /**
-     * printing message with prefix
-     * @param message - message for print
-     */
-    public static void log(String message) {
-        Logger.log(message,true);
-    }
-
-    /**
-     * prints a string with or without prefix
-     * @param message - message for print
-     * @param isTypePrintNeeded - if true, prints with prefix
-     */
-    public static void log(String message, boolean isTypePrintNeeded){
-        if (summFlag){
-            mySout("",sum+"");
-            sum = 0;
-            summFlag = false;
-        }
-        if (!isTypePrintNeeded){
-            if (lastString!=null) {
-                if (lastString.equals(message)){
-                    strCounter++;
-                } else {
-                    if (strCounter==0){
-                        mySout("",lastString);
-                        strCounter++;
-                    }
-                    else{
-                        mySout("",lastString+" (x"+strCounter+")");
-                        strCounter = 0;
-                    }
-                    lastString = message;
-                }
-            }
-            lastString = message;
-        } else {
-            mySout(STRING,message);
+            this.log(arr, true);
         }
     }
 
     /**
-     * prints vararg of strings, each on new line
-     * @param arr - strings for print
+     * printing matrix
+     * @param arr - matrix for print
      */
-    public static void log(String... arr){
-        for (String x : arr){
-            System.out.println(x);
-        }
+    public void log(int[][] arr) {
+        this.log(arr, true);
     }
 
-    //endregion
-
-    //region logObjectMethods
 
     /**
-     * printing object.toString with prefix
-     * @param object - reference for print as string
+     * printing multimatrix
+     * @param arr - multimatrix for printing
      */
-    public static void log(Object object) {
-        mySout(REFERENCE, object.toString());
-    }
-
-    //endregion
-
-    //region logInt[]Methods
-
-    /**
-     * prints vararg of int's
-     * @param arr - int's for print
-     */
-    public static void log(int... arr){
-        Logger.log(arr,true);
-    }
-    /**
-     * printing array
-     * @param arr - array for print
-     * @param isMark - if true, printing with prefix
-     */
-    public static void log(int[] arr, boolean isMark){
-        if (isMark){
-            System.out.print("primitives array: ");
-        }
-        System.out.print("{");
-        for (int i=0;i<arr.length;i++){
-            if (i==0){
-                System.out.print(arr[i]);
-            }else if (i==arr.length-1){
-                System.out.print(", "+arr[i]);
-            } else {
-                System.out.print(", "+arr[i]);
-            }
-        }
-        System.out.println("}");
-
-
-    }
-    /**
-     * printing array with prefix
-     * @param arr - array for printing
-     */
-    public static void log(int[][] arr){
-        log(arr,true);
-    }
-
-    /**
-     * printing array
-     * @param arr - array for print
-     * @param isMark - if true, printing with prefix
-     */
-    public static void log(int[][] arr,boolean isMark){
-        if (isMark){
-            System.out.print("primitives matrix: ");
-        }
-        System.out.println("{");
-        for (int[] x : arr){
-            log(x,false);
-        }
-        System.out.println("}");
-    }
-
-    /**
-     * printing array with prefix
-     * @param arr - array for printing
-     */
-    public static void log(int[][][][] arr){
-        System.out.println("primitives multimatrix: {");
-        for (int[][][] x : arr){
+    public void log(int[][][][] arr) {
+        System.out.println(PRIMITIVES_MULTIMATRIX);
+        for (int[][][] x : arr) {
             System.out.println("{");
-            for (int[][] y : x){
+            for (int[][] y : x) {
                 System.out.println("{");
-                for (int[] z : y){
+                for (int[] z : y) {
                     System.out.println("{");
-                    for (int num : z){
+                    for (int num : z) {
                         System.out.print(num);
                     }
-                    System.out.println(System.lineSeparator()+"}");
+                    System.out.println(System.lineSeparator() + "}");
                 }
                 System.out.println("}");
             }
@@ -256,45 +106,57 @@ public class Logger {
         System.out.println("}");
     }
 
-    //endregion
-
-    //region SysMethods
-
     /**
-     * cleaning buffers and links
+     * printing vararg of String's
+     * @param arr - vararg for printing
      */
-    public static void close(){
-        Logger.sum = 0;
-        Logger.strCounter = 0;
-        Logger.lastString = null;
-        Logger.summFlag = false;
-    }
-
-    /**
-     * custom System.out
-     * @param word - type of message
-     * @param message - message
-     */
-    private static void mySout(String word,String message) {
-        System.out.println(word + message);
-    }
-
-    /**
-     * function which checks global string variable. If it not null, prints it
-     */
-    private static void lastPrint(){
-        {
-            if (lastString!=null){
-                if (strCounter!=0){
-                    mySout("",lastString+" (x"+strCounter+")");
-                    strCounter = 0;
-                } else {
-                    mySout("",lastString);
-                }
-                lastString = null;
+    public void log(String... arr) {
+        if (arr.length == 1) {
+            this.log(arr[0]);
+        } else {
+            for (String x : arr) {
+                System.out.println(x);
             }
         }
     }
 
-    //endregion
+    /**
+     * printing array with or without prefix
+     * @param arr - array for printing
+     * @param isMark - if true, printing with prefix
+     */
+    private void log(int[] arr, boolean isMark) {
+        if (isMark) {
+            System.out.print(PRIMITIVES_ARRAY);
+        }
+        System.out.print("{");
+        for (int i = 0; i < arr.length; i++) {
+            if (i == 0) {
+                System.out.print(arr[i]);
+            } else if (i == arr.length - 1) {
+                System.out.print(", " + arr[i]);
+            } else {
+                System.out.print(", " + arr[i]);
+            }
+        }
+        System.out.println("}");
+    }
+
+    /**
+     * printing array with or without prefix
+     * @param arr - array for printing
+     * @param isMark - if true, printing with prefix
+     */
+    private void log(int[][] arr, boolean isMark) {
+        if (isMark) {
+            System.out.print(PRIMITIVES_MATRIX);
+        }
+        System.out.println("{");
+        for (int[] x : arr) {
+            this.log(x, false);
+        }
+        System.out.println("}");
+    }
+
+
 }

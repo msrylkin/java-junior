@@ -1,6 +1,7 @@
 package com.acme.edu.iteration01;
 
 import com.acme.edu.Logger;
+import com.acme.edu.PrefixLogger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
@@ -26,9 +27,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        Logger.log(1);
-        Logger.log(0);
-        Logger.log(-1);
+        Logger logger = new PrefixLogger();
+        logger.log(1);
+        logger.log(0);
+        logger.log(-1);
         //endregion
 
         //region then
@@ -40,9 +42,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Logger.log((byte)1);
-        Logger.log((byte)0);
-        Logger.log((byte)-1);
+        Logger logger = new PrefixLogger();
+        logger.log((byte)1);
+        logger.log((byte) 0);
+        logger.log((byte) -1);
         //endregion
 
         //region then
@@ -60,8 +63,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogChar() throws IOException {
         //region when
-        Logger.log('a');
-        Logger.log('b');
+        Logger logger = new PrefixLogger();
+        logger.log('a');
+        logger.log('b');
         //endregion
 
         //region then
@@ -74,8 +78,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogString() throws IOException {
         //region when
-        Logger.log("test string 1");
-        Logger.log("other str");
+        Logger logger = new PrefixLogger();
+        logger.log("test string 1");
+        logger.log("other str");
         //endregion
 
         //region then
@@ -89,8 +94,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-        Logger.log(true);
-        Logger.log(false);
+        Logger logger = new PrefixLogger();
+        logger.log(true);
+        logger.log(false);
         //endregion
 
         //region then
@@ -104,7 +110,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-        Logger.log(new Object());
+        Logger logger = new PrefixLogger();
+        logger.log(new Object());
         //endregion
 
         //region then
