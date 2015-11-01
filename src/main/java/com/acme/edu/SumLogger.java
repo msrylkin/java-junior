@@ -1,7 +1,10 @@
 package com.acme.edu;
 
-
-public class SumLogger extends Logger {
+/**
+ * Logger realization.
+ * Summarize ONLY: String, int, byte. Other types just print to console without modify
+ */
+public class SumLogger extends SimpleLogger {
 
 
     /**
@@ -71,7 +74,7 @@ public class SumLogger extends Logger {
     private void printLast(){
         if (lastStr!=null){
             if (strCounter==0){
-                System.out.println(lastStr);
+                super.log(lastStr);
                 lastStr = null;
             } else {
                 System.out.printf("%s (x%d)"+System.lineSeparator(),lastStr,++strCounter);
@@ -82,7 +85,7 @@ public class SumLogger extends Logger {
 
     private void printSum(){
         if (sumFlag){
-            System.out.println(sum);
+            super.log(sum);
             sum = 0;
             sumFlag = false;
             lastStr = null;
@@ -91,8 +94,8 @@ public class SumLogger extends Logger {
 
     private void setSumFlagAndPrint(int message,boolean isOverFlow){
         if (isOverFlow){
-            System.out.println(sum);
-            System.out.println(message);
+            super.log(sum);
+            super.log(message);
             sum = 0;
             sumFlag = false;
         } else {
