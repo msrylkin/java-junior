@@ -1,7 +1,7 @@
 package com.acme.edu.iteration02;
 
 import com.acme.edu.Logger;
-import com.acme.edu.SumLogger;
+import com.acme.edu.SysOutPrinter;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
@@ -17,20 +17,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
-
     @After
     public void tearDown() {
         resetOut();
+
     }
 
     private static final String SEP = System.lineSeparator();
 
    // TODO: implement Logger solution to match specification as tests
 
+
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        Logger logger = new SumLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log("str 1");
         logger.log(1);
         logger.log(2);
@@ -54,7 +55,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        Logger logger = new SumLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log("str 1");
         logger.log(10);
         logger.log(Integer.MAX_VALUE);
@@ -78,10 +79,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        Logger logger = new SumLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log("str 1");
         logger.log((byte)10);
-        logger.log((byte)Byte.MAX_VALUE);
+        logger.log((byte) Byte.MAX_VALUE);
         logger.log("str 2");
         logger.log(0);
         logger.close();
@@ -91,8 +92,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region then
         assertSysoutEquals(
                 "str 1" + SEP +
-                        "10" + SEP +
-                        Byte.MAX_VALUE + SEP +
+                        "137" + SEP +
                         "str 2" + SEP +
                         "0" + SEP
         );
@@ -104,7 +104,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-        Logger logger = new SumLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log("str 1");
         logger.log("str 2");
         logger.log("str 2");

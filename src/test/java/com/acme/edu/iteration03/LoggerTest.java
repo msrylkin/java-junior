@@ -1,7 +1,7 @@
 package com.acme.edu.iteration03;
 
 import com.acme.edu.Logger;
-import com.acme.edu.PrefixLogger;
+import com.acme.edu.SysOutPrinter;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +16,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         captureSysout();
     }
 
-
     @After
     public void tearDown() {
         resetOut();
@@ -30,13 +29,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
-        Logger logger = new PrefixLogger();
+        Logger logger = new Logger(new SysOutPrinter());
+
         logger.log(new int[]{-1, 0, 1});
+        logger.close();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "primitives array: {-1, 0, 1}"+SEP
+                "primitives array: {-1, 0, 1}" + SEP
         );
         //endregion
     }
@@ -45,8 +46,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
-        Logger logger = new PrefixLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        logger.close();
         //endregion
 
         //region then
@@ -64,17 +66,18 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
         //region when
-        Logger logger = new PrefixLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log(new int[][][][] {{{{0}}}});
+        logger.close();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "primitives multimatrix: {" +SEP+
-                "{"+SEP + "{"+SEP + "{" +
-                    "0" +
-                "}"+SEP + "}"+SEP + "}"+SEP +
-            "}"+SEP
+                "primitives multimatrix: {" + SEP +
+                        "{" + SEP + "{" + SEP + "{" +
+                        "0" +
+                        "}" + SEP + "}" + SEP + "}" + SEP +
+                        "}" + SEP
         );
         //endregion
     }
@@ -83,20 +86,22 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
-        Logger logger = new PrefixLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log("str1", "string 2", "str 3");
+        logger.close();
         //endregion
 
         //region then
-        assertSysoutContains("str1"+SEP+"string 2"+SEP+"str 3");
+        assertSysoutContains("str1" + SEP + "string 2" + SEP + "str 3");
         //endregion
     }
 
     @Test
     public void shouldLogIntegersWithOneMethodCall() throws IOException {
         //region when
-        Logger logger = new PrefixLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log(-1, 0, 1, 3);
+        logger.close();
         //endregion
 
         //region then
@@ -107,11 +112,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
         //region when
-        Logger logger = new PrefixLogger();
+        Logger logger = new Logger(new SysOutPrinter());
         logger.log(1);
         logger.log("str");
         logger.log(Integer.MAX_VALUE - 10);
         logger.log(11);
+        logger.close();
         //endregion
 
         //region then
