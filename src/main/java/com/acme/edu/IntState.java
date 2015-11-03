@@ -4,14 +4,20 @@ package com.acme.edu;
  * Created by user on 02.11.2015.
  */
 public class IntState implements State {
+    /**
+     * Buffer var's
+     */
     private int buffer;
-    //private boolean
     private Printer printer;
 
     public IntState(Printer printer) {
         this.printer = printer;
     }
 
+    /**
+     * Printing or sum
+     * @param message - message for printing
+     */
     @Override
     public void printOrSum(String message) {
         long test = (long) Integer.parseInt(message) + buffer;
@@ -23,6 +29,9 @@ public class IntState implements State {
         }
     }
 
+    /**
+     * Cleaning buffer and printing data
+     */
     @Override
     public void clearBuffer() {
         printer.print(buffer+"");

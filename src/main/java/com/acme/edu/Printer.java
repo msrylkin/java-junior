@@ -1,8 +1,12 @@
 package com.acme.edu;
 
 /**
- * Created by user on 02.11.2015.
+ * Prints our data to somewhere
  */
 public interface Printer {
+    /**
+     * Print something to somewhere
+     * @param message - data
+     */
     void print(String message);
 }

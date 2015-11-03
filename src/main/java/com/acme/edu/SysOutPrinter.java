@@ -1,10 +1,15 @@
 package com.acme.edu;
 
 /**
- * Created by user on 02.11.2015.
+ * Printer realization.
+ * Prints our data to System output
  */
 public class SysOutPrinter implements Printer {
 
+    /**
+     * Prints data to console
+     * @param message - data
+     */
     @Override
     public void print(String message) {
         System.out.println(message);

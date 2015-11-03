@@ -10,29 +10,31 @@ public class Logger {
     public static final String REFERENCE_PREFIX = "reference: ";
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String CHAR_PREFIX = "char: ";
-    //public static final String STRING_PREFIX = "string: ";
 
     /**
-     * temp flags and variables for sum and counter
+     * State machine vars
      */
-//    private static int sum = 0;
-//    private static boolean summFlag = false;
-//    private static String lastString = null;
-//    private static int strCounter = 0;
-
     private final State intState;
     private final State stringState;
-    //private final State emptyState;
 
+    private Printer printer;
+
+    /**
+     * Current state of the our app
+     */
     private State currerntState;
 
-    //region logIntegerMethods
 
 
+
+    /**
+     * Constructor.
+     * @param printer - type of printer to out our data
+     */
     public Logger(Printer printer) {
-        this.intState = new IntState(printer);
-        this.stringState = new StringState(printer);
-        //this.emptyState = emptyState;
+        this.printer = printer;
+        this.intState = new IntState(this.printer);
+        this.stringState = new StringState(this.printer);
     }
 
     /**
@@ -40,8 +42,6 @@ public class Logger {
      * @param message - message for print
      */
     public void log(int message) {
-//        mySout(PRIMITIVE_PREFIX, String.valueOf(message));
-
         if (currerntState!=intState&&currerntState!=null){
             currerntState.clearBuffer();
         }
@@ -50,32 +50,6 @@ public class Logger {
     }
 
 
-
-//    /**
-//     * if isNumberForSum true and next value is int, prints sum
-//     * @param number - number for sum or printing
-//     * @param isNumberForSum - if true, prints sum
-//     */
-//    public static void log(int number, boolean isNumberForSum){
-//        lastPrint();
-//        if (isNumberForSum){
-//            long test = (long)sum+number;
-//            if (test>Integer.MAX_VALUE||test<Integer.MIN_VALUE){
-//                Logger.log(sum,false);
-//                Logger.log(number, false);
-//                summFlag = false;
-//            } else {
-//                sum+=number;
-//                summFlag = true;
-//            }
-//        } else {
-//            mySout("",number+"");
-//        }
-//    }
-
-    //endregion
-
-    //region logByteMethods
     /**
      * printing message with prefix
      * @param message - message for print
@@ -84,29 +58,8 @@ public class Logger {
         log((int)message);
     }
 
-//    /**
-//     * if isNumberForSum true and next number byte, printing sum of numbers
-//     * @param number - number for printing or summation
-//     * @param isNumberForSum - if true, summarize with neht int value
-//     */
-//    public static void log(byte number, boolean isNumberForSum){
-//        if (isNumberForSum){
-//            long test = (long)sum+number;
-//            if (test>Byte.MAX_VALUE||test<Byte.MIN_VALUE){
-//                Logger.log(sum,false);
-//                Logger.log(number, false);
-//                summFlag = false;
-//            } else {
-//                sum+=number;
-//                summFlag = true; }
-//        } else {
-//            mySout("",number+"");
-//        }
-//    }
 
-    //endregion
 
-    //region logBooleanMethods
     /**
      * printing message with prefix
      * @param message - message for print
@@ -116,9 +69,6 @@ public class Logger {
         mySout(PRIMITIVE_PREFIX + String.valueOf(message));
     }
 
-    //endregion
-
-    //region logCharMethods
 
     /**
      * printing message with prefix
@@ -128,16 +78,12 @@ public class Logger {
         mySout(CHAR_PREFIX + String.valueOf(message));
     }
 
-    //endregion
 
-    //region logStringMethods
     /**
      * printing message with prefix
      * @param message - message for print
      */
     public void log(String message) {
-
-//        Logger.log(message,true);
         if (this.currerntState!=stringState&&this.currerntState!=null){
             this.currerntState.clearBuffer();
         }
@@ -146,38 +92,6 @@ public class Logger {
     }
 
 
-//    /**
-//     * prints a string with or without prefix
-//     * @param message - message for print
-//     * @param isTypePrintNeeded - if true, prints with prefix
-//     */
-//    public static void log(String message, boolean isTypePrintNeeded){
-//        if (summFlag){
-//            mySout("",sum+"");
-//            sum = 0;
-//            summFlag = false;
-//        }
-//        if (!isTypePrintNeeded){
-//            if (lastString!=null) {
-//                if (lastString.equals(message)){
-//                    strCounter++;
-//                } else {
-//                    if (strCounter==0){
-//                        mySout("",lastString);
-//                        strCounter++;
-//                    }
-//                    else{
-//                        mySout("",lastString+" (x"+strCounter+")");
-//                        strCounter = 0;
-//                    }
-//                    lastString = message;
-//                }
-//            }
-//            lastString = message;
-//        } else {
-//            mySout(STRING_PREFIX,message);
-//        }
-//    }
 
     /**
      * prints vararg of strings, each on new line
@@ -189,9 +103,6 @@ public class Logger {
         }
     }
 
-    //endregion
-
-    //region logObjectMethods
 
     /**
      * printing object.toString with prefix
@@ -201,9 +112,6 @@ public class Logger {
         mySout(REFERENCE_PREFIX + object.toString());
     }
 
-    //endregion
-
-    //region logInt[]Methods
 
     /**
      * prints vararg of int's
@@ -274,15 +182,6 @@ public class Logger {
         for (int[][][] x : arr){
             mySout("{");
             for (int[][] y : x){
-//                mySout("{");
-//                for (int[] z : y){
-//                    mySout("{");
-//                    for (int num : z){
-//                        System.out.print(num);
-//                    }
-//                    mySout(System.lineSeparator()+"}");
-//                }
-//                mySout("}");
                 log(y,false);
             }
             mySout("}");
@@ -290,9 +189,6 @@ public class Logger {
         mySout("}");
     }
 
-    //endregion
-
-    //region SysMethods
 
     /**
      * cleaning buffers and links
@@ -305,13 +201,8 @@ public class Logger {
     }
 
 
-
-
     private void mySout(String message) {
-        System.out.println(message);
+        this.printer.print(message);
     }
 
-
-
-    //endregion
 }

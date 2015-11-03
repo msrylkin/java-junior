@@ -2,14 +2,25 @@ package com.acme.edu;
 
 
 public class StringState implements State{
+    /**
+     * Buffer var's
+     */
     private Printer printer;
     private int strCounter = 0;
     private String buffer = null;
 
+    /**
+     * Constructor
+     * @param printer - data printer
+     */
     public StringState(Printer printer) {
         this.printer = printer;
     }
 
+    /**
+     * Printing or sum
+     * @param message - message for printing
+     */
     @Override
     public void printOrSum(String message) {
         if (message.equals(buffer)){
@@ -21,6 +32,9 @@ public class StringState implements State{
         }
     }
 
+    /**
+     * Cleaning buffer and print
+     */
     @Override
     public void clearBuffer() {
         switch (this.strCounter){
@@ -30,11 +44,6 @@ public class StringState implements State{
             default:
                 this.printer.print(this.buffer+" (x"+this.strCounter+")");
         }
-//        if (this.strCounter==1){
-//            this.printer.print(Logger.STRING_PREFIX + this.buffer);
-//        } else {
-//            this.printer.print(Logger.STRING_PREFIX + );
-//        }
         this.strCounter = 0;
         this.buffer = null;
     }
