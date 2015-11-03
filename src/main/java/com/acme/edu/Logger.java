@@ -25,8 +25,6 @@ public class Logger {
     private State currerntState;
 
 
-
-
     /**
      * Constructor.
      * @param printer - type of printer to out our data
@@ -67,6 +65,7 @@ public class Logger {
 
     public void log(boolean message) {
         mySout(PRIMITIVE_PREFIX + String.valueOf(message));
+        //new PrefixCommand(PRIMITIVE_PREFIX,String.valueOf(message),currerntState,printer);
     }
 
 
