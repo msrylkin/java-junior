@@ -3,14 +3,14 @@ package com.acme.edu.iteration01;
 import com.acme.edu.Logger;
 import com.acme.edu.SysOutPrinter;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
 
-@Ignore
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
 
@@ -26,7 +26,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
-    @Test
+    @Test @Ignore
     public void shouldLogInteger() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -43,7 +43,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    @Test
+    @Test @Ignore
     public void shouldLogByte() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -66,7 +66,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     TODO: implement Logger solution to match specification as tests
 
 */
-    @Test
+    @Test @Ignore
     public void shouldLogChar() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -81,7 +81,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    @Test
+    @Test @Ignore
     public void shouldLogString() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -98,7 +98,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test
+    @Test @Ignore
     public void shouldLogBoolean() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -115,7 +115,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test
+    @Test @Ignore
     public void shouldLogReference() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());

@@ -3,14 +3,14 @@ package com.acme.edu.iteration03;
 import com.acme.edu.Logger;
 import com.acme.edu.SysOutPrinter;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
-@Ignore
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -28,7 +28,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
     //TODO: implement Logger solution to match specification as tests
 
-    @Test
+    @Test @Ignore
     public void shouldLogIntegersArray() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -45,7 +45,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test
+    @Test @Ignore
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -65,7 +65,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test
+    @Test @Ignore
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -85,7 +85,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test
+    @Test @Ignore
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -98,7 +98,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    @Test
+    @Test @Ignore
     public void shouldLogIntegersWithOneMethodCall() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
@@ -111,7 +111,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    @Test
+    @Test @Ignore
     public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
         //region when
         Logger logger = new Logger(new SysOutPrinter());
