@@ -9,4 +9,6 @@ public interface Printer {
      * @param message - data
      */
     void print(String message);
+
+
 }

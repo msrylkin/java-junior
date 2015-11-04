@@ -4,6 +4,13 @@ package com.acme.edu;
 
 public class Logger {
 
+    public static void main(String[] args) {
+        Logger logger = new Logger(new ConsolePrinter(),new IntState(), new StringState());
+        logger.log(1);
+        logger.log(2);
+        logger.close();
+    }
+
     /**
      * String constants
      */
@@ -14,8 +21,8 @@ public class Logger {
     /**
      * State machine vars
      */
-    private final State intState;
-    private final State stringState;
+    private final IntState intState;
+    private final StringState stringState;
 
     private Printer printer;
 
@@ -26,13 +33,18 @@ public class Logger {
 
 
     /**
-     * Constructor.
-     * @param printer - type of printer to out our data
+     * Constructor
+     * @param printer - type of printer for printing message
+     * @param intState - creator should create new IntState() here
+     * @param stringState - creator should create new StringState() here
      */
-    public Logger(Printer printer) {
+    public Logger(Printer printer, IntState intState, StringState stringState) {
         this.printer = printer;
-        this.intState = new IntState(this.printer);
-        this.stringState = new StringState(this.printer);
+        this.intState = intState;
+        this.stringState = stringState;
+
+        this.intState.setPrinter(this.printer);
+        this.stringState.setPrinter(this.printer);
     }
 
     /**

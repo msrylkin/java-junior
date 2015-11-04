@@ -2,9 +2,7 @@ package com.acme.edu.unit;
 
 import com.acme.edu.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 
@@ -13,48 +11,50 @@ import static org.mockito.Mockito.*;
  */
 public class LoggerTest {
 
+    private IntState intState;
+    private StringState stringState;
+    private Printer printer;
+    private Logger sut;
+
+    @Before
+    public void setUpTest(){
+        intState = mock(IntState.class);
+        stringState = mock(StringState.class);
+        printer = mock(Printer.class);
+        sut = new Logger(printer,intState,stringState);
+    }
 
 
     @Test
-    public void shouldLogSumOfIntAfterClose(){
-        Printer mock = mock(Printer.class);
-        Logger sut = new Logger(mock);
-
+    public void shouldLogIntegers(){
         sut.log(1);
         sut.log(1);
-        sut.close();
+        sut.log(1);
+        sut.log("asdzxc");
 
-        verify(mock).print("2");
+        verify(intState,times(3)).printOrSum("1");
     }
 
     @Test
-    public void shouldDublicateStrings(){
-        Printer mock = mock(Printer.class);
-        State sut = new StringState(mock);
+    public void shouldLogSumOfStrings(){
+        sut.log("asd");
+        sut.log("asd");
+        sut.log("asd");
+        sut.log("zxc");
 
-        sut.printOrSum("qwe");
-        sut.printOrSum("qwe");
-        sut.printOrSum("qwe");
-        sut.printOrSum("str 3");
-        sut.clearBuffer();
-
-        verify(mock).print("qwe (x3)");
-        verify(mock).print("str 3");
+        verify(stringState,times(3)).printOrSum("asd");
+        verify(stringState).printOrSum("zxc");
     }
-
 
     @Test
-    public void shouldSumInt(){
-        Printer mock = mock(Printer.class);
-        State sut = new IntState(mock);
+    public void shouldLogPrimitivies(){
+        sut.log('a');
+        sut.log('b');
+        sut.log(true);
 
-        sut.printOrSum("1");
-        sut.printOrSum("10");
-        sut.printOrSum("100");
-        sut.clearBuffer();
-
-        verify(mock).print("111");
+        verify(printer).print("char: a");
+        verify(printer).print("char: b");
+        verify(printer).print("primitive: true");
     }
-
 
 }

@@ -1,8 +1,6 @@
 package com.acme.edu.iteration02;
 
-import com.acme.edu.Logger;
-import com.acme.edu.SysOutPrinter;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.*;
 import org.junit.Ignore;
 import org.junit.After;
 import org.junit.Before;
@@ -33,7 +31,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        Logger logger = new Logger(new SysOutPrinter());
+        Logger logger = new Logger(new ConsolePrinter(),new IntState(),new StringState());
         logger.log("str 1");
         logger.log(1);
         logger.log(2);
@@ -57,7 +55,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        Logger logger = new Logger(new SysOutPrinter());
+        Logger logger = new Logger(new ConsolePrinter(),new IntState(),new StringState());
         logger.log("str 1");
         logger.log(10);
         logger.log(Integer.MAX_VALUE);
@@ -81,7 +79,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        Logger logger = new Logger(new SysOutPrinter());
+        Logger logger = new Logger(new ConsolePrinter(),new IntState(),new StringState());
         logger.log("str 1");
         logger.log((byte)10);
         logger.log((byte) Byte.MAX_VALUE);
@@ -106,7 +104,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-        Logger logger = new Logger(new SysOutPrinter());
+        Logger logger = new Logger(new ConsolePrinter(),new IntState(),new StringState());
         logger.log("str 1");
         logger.log("str 2");
         logger.log("str 2");

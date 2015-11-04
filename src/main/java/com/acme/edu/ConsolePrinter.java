@@ -4,7 +4,7 @@ package com.acme.edu;
  * Printer realization.
  * Prints our data to System output
  */
-public class SysOutPrinter implements Printer {
+public class ConsolePrinter implements Printer {
 
     /**
      * Prints data to console
