@@ -4,13 +4,6 @@ package com.acme.edu;
 
 public class Logger {
 
-    public static void main(String[] args) {
-        Logger logger = new Logger(new ConsolePrinter(),new IntState(), new StringState());
-        logger.log(1);
-        logger.log(2);
-        logger.close();
-    }
-
     /**
      * String constants
      */
@@ -23,8 +16,8 @@ public class Logger {
      */
     private final IntState intState;
     private final StringState stringState;
+    private final EmptyBufferState emptyBufferState;
 
-    private Printer printer;
 
     /**
      * Current state of the our app
@@ -32,19 +25,13 @@ public class Logger {
     private State currerntState;
 
 
-    /**
-     * Constructor
-     * @param printer - type of printer for printing message
-     * @param intState - creator should create new IntState() here
-     * @param stringState - creator should create new StringState() here
-     */
-    public Logger(Printer printer, IntState intState, StringState stringState) {
-        this.printer = printer;
-        this.intState = intState;
-        this.stringState = stringState;
 
-        this.intState.setPrinter(this.printer);
-        this.stringState.setPrinter(this.printer);
+    public Logger(StateFactory stateFactory){
+        if (stateFactory==null) throw new NullPointerException("StateFactory can't be null!");
+
+        this.intState = stateFactory.getIntState();
+        this.stringState = stateFactory.getStringState();
+        this.emptyBufferState = stateFactory.getEmptyBufferState();
     }
 
     /**
@@ -135,14 +122,15 @@ public class Logger {
             log(arr,true);
         }
     }
+
     /**
      * printing array
      * @param arr - array for print
-     * @param isMark - if true, printing with prefix
+     * @param isPrefixShouldBePrinted - if true, printing with prefix
      */
-    public void log(int[] arr, boolean isMark){
+    public void log(int[] arr, boolean isPrefixShouldBePrinted){
         close();
-        if (isMark){
+        if (isPrefixShouldBePrinted){
             System.out.print("primitives array: ");
         }
         System.out.print("{");
@@ -157,6 +145,7 @@ public class Logger {
 
 
     }
+
     /**
      * printing array with prefix
      * @param arr - array for printing
@@ -169,11 +158,11 @@ public class Logger {
     /**
      * printing array
      * @param arr - array for print
-     * @param isMark - if true, printing with prefix
+     * @param isPrefixShouldBePrinted - if true, printing with prefix
      */
-    public void log(int[][] arr,boolean isMark){
+    public void log(int[][] arr,boolean isPrefixShouldBePrinted){
         close();
-        if (isMark){
+        if (isPrefixShouldBePrinted){
             System.out.print("primitives matrix: ");
         }
         mySout("{");
@@ -213,7 +202,7 @@ public class Logger {
 
 
     private void mySout(String message) {
-        this.printer.print(message);
+        //this.printer.print(message);
     }
 
 }

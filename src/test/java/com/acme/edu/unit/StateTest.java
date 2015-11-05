@@ -1,9 +1,6 @@
 package com.acme.edu.unit;
 
-import com.acme.edu.IntState;
-import com.acme.edu.Logger;
-import com.acme.edu.Printer;
-import com.acme.edu.StringState;
+import com.acme.edu.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,5 +47,11 @@ public class StateTest {
         stringState.clearBuffer();
 
         verify(printerMock, times(0)).print("");
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void shouldThrowNPE(){
+        State sut = new IntState(null);
+        sut.clearBuffer();
     }
 }

@@ -2,26 +2,29 @@ package com.acme.edu.unit;
 
 import com.acme.edu.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-/**
- * Created by user on 03.11.2015.
- */
+
 public class LoggerTest {
 
     private IntState intState;
     private StringState stringState;
     private Printer printer;
     private Logger sut;
+    private StateFactory stateFactory;
 
     @Before
     public void setUpTest(){
         intState = mock(IntState.class);
         stringState = mock(StringState.class);
         printer = mock(Printer.class);
-        sut = new Logger(printer,intState,stringState);
+        stateFactory = mock(StateFactory.class);
+        when(stateFactory.getIntState()).thenReturn(intState);
+        when(stateFactory.getStringState()).thenReturn(stringState);
+        sut = new Logger(stateFactory);
     }
 
 
@@ -46,7 +49,7 @@ public class LoggerTest {
         verify(stringState).printOrSum("zxc");
     }
 
-    @Test
+    @Test @Ignore
     public void shouldLogPrimitivies(){
         sut.log('a');
         sut.log('b');
@@ -55,6 +58,11 @@ public class LoggerTest {
         verify(printer).print("char: a");
         verify(printer).print("char: b");
         verify(printer).print("primitive: true");
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void shouldThrowNullPointerExceptionIfPrinterIsNull(){
+        Logger sut = new Logger(null);
     }
 
 }

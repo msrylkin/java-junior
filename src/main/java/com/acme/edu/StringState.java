@@ -17,14 +17,6 @@ public class StringState implements State{
         this.printer = printer;
     }
 
-    public StringState(){
-
-    }
-
-
-    public void setPrinter(Printer printer) {
-        this.printer = printer;
-    }
 
     /**
      * Printing or sum

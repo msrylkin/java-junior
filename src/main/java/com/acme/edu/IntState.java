@@ -14,14 +14,6 @@ public class IntState implements State {
         this.printer = printer;
     }
 
-    public IntState(){
-
-    }
-
-
-    public void setPrinter(Printer printer) {
-        this.printer = printer;
-    }
 
     /**
      * Printing or sum
