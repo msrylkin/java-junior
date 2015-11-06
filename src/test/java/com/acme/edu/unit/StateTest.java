@@ -17,7 +17,7 @@ public class StateTest {
     private Printer printerMock;
 
     @Before
-    public void setUpTest(){
+    public void setUpTest() throws LoggerException{
         printerMock = mock(Printer.class);
         intState = new IntState(printerMock);
         stringState = new StringState(printerMock);
@@ -25,32 +25,32 @@ public class StateTest {
     }
 
     @Test
-    public void shouldPrintWhenIntBufferOverFLow(){
-        intState.printOrSum(String.valueOf(Integer.MAX_VALUE));
-        intState.printOrSum("1");
+    public void shouldPrintWhenIntBufferOverFLow() throws LoggerException{
+        intState.log(String.valueOf(Integer.MAX_VALUE));
+        intState.log("1");
 
         verify(printerMock).print(String.valueOf(Integer.MAX_VALUE));
     }
 
     @Test
-    public void shouldConcatStrings(){
-        stringState.printOrSum("asd");
-        stringState.printOrSum("asd");
-        stringState.printOrSum("asd");
+    public void shouldConcatStrings() throws  LoggerException{
+        stringState.log("asd");
+        stringState.log("asd");
+        stringState.log("asd");
         stringState.clearBuffer();
 
         verify(printerMock).print("asd (x3)");
     }
 
     @Test
-    public void shouldNotCallPrinter(){
+    public void shouldNotCallPrinter() throws LoggerException{
         stringState.clearBuffer();
 
         verify(printerMock, times(0)).print("");
     }
 
     @Test (expected = NullPointerException.class)
-    public void shouldThrowNPE(){
+    public void shouldThrowNPE() throws LoggerException{
         State sut = new IntState(null);
         sut.clearBuffer();
     }

@@ -11,7 +11,12 @@ public class ConsolePrinter implements Printer {
      * @param message - data
      */
     @Override
-    public void print(String message) {
+    public void print(String message) throws PrinterException{
         System.out.println(message);
+    }
+
+    @Override
+    public void close() throws PrinterException {
+
     }
 }

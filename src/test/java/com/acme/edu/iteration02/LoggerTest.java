@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
-    public void setUpSystemOut() throws IOException {
+    public void setUpSystemOut() throws LoggerException {
         captureSysout();
     }
     //endregion
@@ -20,7 +20,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @After
     public void tearDown() {
         resetOut();
-
     }
 
     private static final String SEP = System.lineSeparator();
@@ -29,7 +28,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test @Ignore
-    public void shouldLogSequentIntegersAsSum() throws IOException {
+    public void shouldLogSequentIntegersAsSum() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log("str 1");
@@ -53,7 +52,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test @Ignore
-    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws LoggerException{
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log("str 1");
@@ -77,7 +76,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test @Ignore
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws LoggerException{
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log("str 1");
@@ -101,8 +100,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
 
-    @Test @Ignore
-    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
+    @Test
+    public void shouldLogSameSubsequentStringsWithoutRepeat() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log("str 1");

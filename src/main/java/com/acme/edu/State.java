@@ -6,13 +6,16 @@ package com.acme.edu;
 public interface State {
 
     /**
-     * Summarize or print current message and buffer
+     * Summarize or log current message and buffer
      * @param message - message for printing
      */
-    void printOrSum(String message);
+    void log(String message) throws PrinterException;
+
 
     /**
      * Cleaning buffer. You must call that after all operations
      */
-    void clearBuffer();
+    void clearBuffer() throws PrinterException;
+
+    void close() throws PrinterException;
 }

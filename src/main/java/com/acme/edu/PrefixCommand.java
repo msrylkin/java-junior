@@ -9,7 +9,7 @@ public class PrefixCommand extends FormatCommand{
     private State state;
     private Printer printer;
 
-    public PrefixCommand(String prefix, String message, State state, Printer printer) {
+    public PrefixCommand(String prefix, String message, State state, Printer printer) throws PrinterException{
         this.prefix = prefix;
         this.message = message;
         this.state = state;
@@ -23,7 +23,7 @@ public class PrefixCommand extends FormatCommand{
     }
 
     @Override
-    void execute() {
+    void execute() throws PrinterException{
         if (state!=null){
             state.clearBuffer();
             state = null;

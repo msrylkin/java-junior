@@ -14,7 +14,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     Logger logger;
     
     @Before
-    public void setUpSystemOut() throws IOException {
+    public void setUpSystemOut() throws LoggerException {
         captureSysout();
         logger = new Logger(new StateFactory(new ConsolePrinter()));
     }
@@ -30,7 +30,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //TODO: implement Logger solution to match specification as tests
 
     @Test @Ignore
-    public void shouldLogIntegersArray() throws IOException {
+    public void shouldLogIntegersArray() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
 
@@ -47,7 +47,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test @Ignore
-    public void shouldLogIntegersMatrix() throws IOException {
+    public void shouldLogIntegersMatrix() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
@@ -67,7 +67,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test @Ignore
-    public void shouldLogIntegersMulitidimentionalArray() throws IOException {
+    public void shouldLogIntegersMulitidimentionalArray() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log(new int[][][][] {{{{0}}}});
@@ -86,8 +86,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test @Ignore
-    public void shouldLogStringsWithOneMethodCall() throws IOException {
+    @Test
+    public void shouldLogStringsWithOneMethodCall() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log("str1", "string 2", "str 3");
@@ -100,7 +100,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test @Ignore
-    public void shouldLogIntegersWithOneMethodCall() throws IOException {
+    public void shouldLogIntegersWithOneMethodCall() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log(-1, 0, 1, 3);
@@ -113,7 +113,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test @Ignore
-    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
+    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws LoggerException {
         //region when
         Logger logger = new Logger(new StateFactory(new ConsolePrinter()));
         logger.log(1);

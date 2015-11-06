@@ -7,5 +7,5 @@ public abstract class FormatCommand {
 
     abstract void getData();
 
-    abstract void execute();
+    abstract void execute() throws PrinterException;
 }
