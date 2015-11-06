@@ -1,17 +1,22 @@
 package com.acme.edu;
 
 
-
+import java.nio.charset.Charset;
 
 public class Logger {
 
     public static void main(String[] args) throws LoggerException{
-        Logger logger = new Logger(new StateFactory(new ConsolePrinter(),new FilePrinter("D://temp.txt")));
+        Logger logger = new Logger
+                (new StateFactory(
+                        new ConsolePrinter(),
+                        new FilePrinter("D://file.txt"),
+                        new NetworkPrinter("127.0.0.1",6666)));
         logger.log('a');
         logger.log(123);
-        logger.log('a');
         logger.log(123);
-        logger.log('a');
+        logger.log("asd");
+        logger.log("asd");
+        logger.log(123);
         logger.close();
     }
 
@@ -19,7 +24,6 @@ public class Logger {
      * String constants
      */
     public static final String REFERENCE_PREFIX = "reference: ";
-    public static final String PRIMITIVES_MULTIMATRIX = "primitives multimatrix: {";
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String CHAR_PREFIX = "char: ";
 
@@ -135,35 +139,34 @@ public class Logger {
      * @param arr - int's for log
      */
     public void log(int... arr) throws LoggerException{
-        if (arr.length==1){
-            log(arr[0]);
-        } else {
-            log(arr,true);
+        for (int number : arr){
+            log(number);
         }
     }
 
-    /**
-     * printing array
-     * @param arr - array for log
-     * @param isPrefixShouldBePrinted - if true, printing with prefix
-     */
-    public void log(int[] arr, boolean isPrefixShouldBePrinted) throws LoggerException{
-        switchState(this.emptyBufferState);
-        if (isPrefixShouldBePrinted){
-            System.out.print("primitives array: ");
-        }
-        System.out.print("{");
-        for (int i=0;i<arr.length;i++){
-            if (i==0){
-                System.out.print(arr[i]);
-            } else {
-                System.out.print(", "+arr[i]);
-            }
-        }
-        mySout("}");
-
-
-    }
+//    /**
+//     * printing array
+//     * @param arr - array for log
+//     * @param isPrefixShouldBePrinted - if true, printing with prefix
+//     */
+//    public void log(int[] arr) throws LoggerException{
+//        switchState(this.emptyBufferState);
+//        //if (isPrefixShouldBePrinted){
+//          //  System.out.print("primitives array: ");
+//        //}
+//        //System.out.print("{");
+//        //for (int i=0;i<arr.length;i++){
+//            //if (i==0){
+//               // System.out.print(arr[i]);
+//            ///} else {
+//          //      System.out.print(", "+arr[i]);
+//            //}
+//        //}
+//        for (int number : arr){
+//            log(number);
+//        }
+//        //mySout("}");
+//    }
 
     /**
      * printing array with prefix
@@ -171,44 +174,50 @@ public class Logger {
      */
     public void log(int[][] arr) throws LoggerException{
         switchState(this.emptyBufferState);
-        log(arr,true);
+        for (int[] simpleArray : arr){
+            log(simpleArray);
+        }
     }
 
-    /**
-     * printing array
-     * @param arr - array for log
-     * @param isPrefixShouldBePrinted - if true, printing with prefix
-     */
-    public void log(int[][] arr,boolean isPrefixShouldBePrinted) throws LoggerException{
-        switchState(this.emptyBufferState);
-        if (isPrefixShouldBePrinted){
-            System.out.print("primitives matrix: ");
-        }
-        mySout("{");
-        for (int[] x : arr){
-            log(x,false);
-        }
-        mySout("}");
-    }
+//    /**
+//     * printing array
+//     * @param arr - array for log
+//     * @param isPrefixShouldBePrinted - if true, printing with prefix
+//     */
+//    public void log(int[][] arr,boolean isPrefixShouldBePrinted) throws LoggerException{
+//        switchState(this.emptyBufferState);
+//        if (isPrefixShouldBePrinted){
+//            System.out.print("primitives matrix: ");
+//        }
+//        mySout("{");
+//        for (int[] x : arr){
+//            log(x,false);
+//        }
+//        mySout("}");
+//    }
 
     /**
      * printing array with prefix
      * @param arr - array for printing
      */
     public  void log(int[][][][] arr) throws LoggerException{
-
-        switchState(this.emptyBufferState);
-        //StringBuilder stringBuilder = new StringBuilder(PRIMITIVES_MULTIMATRIX);
-        mySout(PRIMITIVES_MULTIMATRIX);
-        for (int[][][] x : arr){
-            mySout("{");
-            //stringBuilder.append("{");
-            for (int[][] y : x){
-                log(y,false);
+//        switchState(this.emptyBufferState);
+//        //StringBuilder stringBuilder = new StringBuilder(PRIMITIVES_MULTIMATRIX);
+//        mySout(PRIMITIVES_MULTIMATRIX);
+//        for (int[][][] x : arr){
+//            mySout("{");
+//            //stringBuilder.append("{");
+//            for (int[][] y : x){
+//                log(y,false);
+//            }
+//            mySout("}");
+//        }
+//        mySout("}");
+        for (int[][][] treeDimensionArray : arr){
+            for (int[][] twoDimensionArray : treeDimensionArray){
+                log(twoDimensionArray);
             }
-            mySout("}");
         }
-        mySout("}");
     }
 
 
@@ -218,7 +227,6 @@ public class Logger {
     public void close() throws LoggerException{
         if (this.currerntState != null){
             this.currerntState.close();
-            this.currerntState = null;
         }
     }
 
@@ -230,9 +238,6 @@ public class Logger {
         this.currerntState.clearBuffer();
         this.currerntState = state;
     }
-    private void mySout(String message) {
-       //this.printer.log(message);
-        System.out.println(message);
-    }
+
 
 }

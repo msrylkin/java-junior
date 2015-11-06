@@ -1,8 +1,7 @@
 package com.acme.edu;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 
 /**
  * Created by user on 06.11.2015.
@@ -12,9 +11,33 @@ public class FilePrinter implements Printer {
 
     public FilePrinter() throws PrinterException{
         try {
-            writer = new BufferedWriter(new FileWriter("result.txt"));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("temp.txt")));
         } catch (IOException e) {
             throw new PrinterException("ERROR CREATING PRINTER!",e);
+        }
+    }
+
+    public FilePrinter(String filename) throws PrinterException{
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename,true)));
+        } catch (IOException e) {
+            try {
+                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("temp.txt")));
+            } catch (IOException e1) {
+                throw new PrinterException("ERROR CREATING PRINTER!",e1);
+            }
+        }
+    }
+
+    public FilePrinter(String filename, Charset charset) throws PrinterException{
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename,true),charset));
+        } catch (IOException e) {
+            try {
+                this.writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("temp.txt")));
+            } catch (IOException e1) {
+                throw new PrinterException("ERROR CREATING PRINTER!",e1);
+            }
         }
     }
 
@@ -24,14 +47,6 @@ public class FilePrinter implements Printer {
             writer.close();
         } catch (IOException e) {
             throw new PrinterException("ERROR CLOSING I/O STREAM!",e);
-        }
-    }
-
-    public FilePrinter(String filename) throws PrinterException{
-        try {
-            writer = new BufferedWriter(new FileWriter(filename));
-        } catch (IOException e) {
-            throw new PrinterException("ERROR CREATING PRINTER!",e);
         }
     }
 
