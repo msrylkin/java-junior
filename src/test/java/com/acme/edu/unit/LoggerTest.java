@@ -1,6 +1,12 @@
 package com.acme.edu.unit;
 
-import com.acme.edu.*;
+import com.acme.edu.logger.Logger;
+import com.acme.edu.logger.LoggerException;
+import com.acme.edu.printers.Printer;
+import com.acme.edu.states.EmptyBufferState;
+import com.acme.edu.states.IntState;
+import com.acme.edu.states.StateFactory;
+import com.acme.edu.states.StringState;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +37,7 @@ public class LoggerTest {
 
 
     @Test
-    public void shouldLogIntegers() throws LoggerException{
+    public void shouldLogIntegers() throws LoggerException {
         sut.log(1);
         sut.log(1);
         sut.log(1);
@@ -55,11 +61,42 @@ public class LoggerTest {
     public void shouldLogPrimitivies() throws LoggerException{
         sut.log('a');
         sut.log('b');
+        sut.log((byte)1);
+        sut.log((Object)"str 1");
         sut.log(true);
 
         verify(emptyBufferState).log("char: a");
         verify(emptyBufferState).log("char: b");
+        verify(intState).log("1");
+        verify(emptyBufferState).log("reference: str 1");
         verify(emptyBufferState).log("primitive: true");
+    }
+
+    @Test
+    public void shouldLogSimpleArrays() throws LoggerException{
+        sut.log(new int[]{1,2,3});
+
+        verify(intState).log("1");
+        verify(intState).log("2");
+        verify(intState).log("3");
+    }
+
+    @Test
+    public void shouldLogTwoDimensionArrays() throws LoggerException{
+        sut.log(new int[][]{{1,2,3}});
+
+        verify(intState).log("1");
+        verify(intState).log("2");
+        verify(intState).log("3");
+    }
+
+    @Test
+    public void shouldLogFourDimensionArray() throws LoggerException{
+        sut.log(new int[][][][]{{{{1,2,3}}}});
+
+        verify(intState).log("1");
+        verify(intState).log("2");
+        verify(intState).log("3");
     }
 
     @Test (expected = NullPointerException.class)

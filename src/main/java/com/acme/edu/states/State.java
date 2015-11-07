@@ -1,4 +1,4 @@
-package com.acme.edu;
+package com.acme.edu.states;
 
 /**
  * State
@@ -9,13 +9,13 @@ public interface State {
      * Summarize or log current message and buffer
      * @param message - message for printing
      */
-    void log(String message) throws PrinterException;
+    void log(String message);
 
 
     /**
      * Cleaning buffer. You must call that after all operations
      */
-    void clearBuffer() throws PrinterException;
+    void clearBuffer();
 
-    void close() throws PrinterException;
+    void close();
 }

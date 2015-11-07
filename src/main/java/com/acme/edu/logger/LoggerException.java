@@ -1,4 +1,4 @@
-package com.acme.edu;
+package com.acme.edu.logger;
 
 /**
  * Created by user on 06.11.2015.

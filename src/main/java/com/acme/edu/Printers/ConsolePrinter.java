@@ -1,4 +1,4 @@
-package com.acme.edu;
+package com.acme.edu.printers;
 
 /**
  * Printer realization.
@@ -11,12 +11,12 @@ public class ConsolePrinter implements Printer {
      * @param message - data
      */
     @Override
-    public void print(String message) throws PrinterException{
+    public void print(String message){
         System.out.println(message);
     }
 
     @Override
-    public void close() throws PrinterException {
+    public void close(){
 
     }
 }

@@ -1,16 +1,18 @@
-package com.acme.edu;
+package com.acme.edu.logger;
 
 
-import java.nio.charset.Charset;
+import com.acme.edu.printers.ConsolePrinter;
+import com.acme.edu.printers.FilePrinter;
+import com.acme.edu.states.*;
 
-public class Logger {
+public class Logger{
 
-    public static void main(String[] args) throws LoggerException{
+    public static void main(String[] args){
         Logger logger = new Logger
                 (new StateFactory(
                         new ConsolePrinter(),
-                        new FilePrinter("D://file.txt"),
-                        new NetworkPrinter("127.0.0.1",6666)));
+                        new FilePrinter("W:?","UTF-8")));
+                        //,new NetworkPrinter("127.0.0.1",6666,"UTF-8")));
         logger.log('a');
         logger.log(123);
         logger.log(123);
@@ -46,7 +48,9 @@ public class Logger {
      * @param stateFactory - factory of our states
      */
     public Logger(StateFactory stateFactory){
-        if (stateFactory==null) throw new NullPointerException("StateFactory can't be null!");
+        if (stateFactory==null) {
+            throw new NullPointerException("StateFactory can't be null!");
+        }
 
         this.intState = stateFactory.getIntState();
         this.stringState = stateFactory.getStringState();
@@ -58,7 +62,7 @@ public class Logger {
      * printing message with prefix
      * @param message - message for log
      */
-    public void log(int message) throws LoggerException{
+    public void log(int message){
         switchState(this.intState);
         this.currerntState.log(message + "");
     }
@@ -68,7 +72,7 @@ public class Logger {
      * printing message with prefix
      * @param message - message for log
      */
-    public void log(byte message) throws LoggerException{
+    public void log(byte message){
         log((int)message);
     }
 
@@ -79,11 +83,9 @@ public class Logger {
      * @param message - message for log
      */
 
-    public void log(boolean message) throws LoggerException{
+    public void log(boolean message){
         switchState(this.emptyBufferState);
         this.currerntState.log(PRIMITIVE_PREFIX + message);
-        //mySout(PRIMITIVE_PREFIX + String.valueOf(message));
-        //new PrefixCommand(PRIMITIVE_PREFIX,String.valueOf(message),currerntState,printer);
     }
 
 
@@ -91,9 +93,7 @@ public class Logger {
      * printing message with prefix
      * @param message - message for log
      */
-    public void log(char message) throws LoggerException{
-//        close();
-        //mySout(CHAR_PREFIX + String.valueOf(message));
+    public void log(char message){
         switchState(this.emptyBufferState);
         this.currerntState.log(CHAR_PREFIX + message);
     }
@@ -103,7 +103,7 @@ public class Logger {
      * printing message with prefix
      * @param message - message for log
      */
-    public void log(String message) throws LoggerException{
+    public void log(String message){
         switchState(this.stringState);
         this.currerntState.log(message + "");
     }
@@ -114,9 +114,7 @@ public class Logger {
      * prints vararg of strings, each on new line
      * @param arr - strings for log
      */
-    public void log(String... arr) throws LoggerException{
-        switchState(this.stringState);
-        //this.currerntState.log(PRIMITIVE_PREFIX+message);
+    public void log(String... arr){
         for (String x : arr){
             log(x);
         }
@@ -127,7 +125,7 @@ public class Logger {
      * printing object.toString with prefix
      * @param object - reference for log as string
      */
-    public void log(Object object) throws LoggerException{
+    public void log(Object object){
         switchState(this.emptyBufferState);
         this.currerntState.log(REFERENCE_PREFIX + object);
         //mySout(REFERENCE_PREFIX + object.toString());
@@ -138,81 +136,30 @@ public class Logger {
      * prints vararg of int's
      * @param arr - int's for log
      */
-    public void log(int... arr) throws LoggerException{
+    public void log(int... arr){
         for (int number : arr){
             log(number);
         }
     }
 
-//    /**
-//     * printing array
-//     * @param arr - array for log
-//     * @param isPrefixShouldBePrinted - if true, printing with prefix
-//     */
-//    public void log(int[] arr) throws LoggerException{
-//        switchState(this.emptyBufferState);
-//        //if (isPrefixShouldBePrinted){
-//          //  System.out.print("primitives array: ");
-//        //}
-//        //System.out.print("{");
-//        //for (int i=0;i<arr.length;i++){
-//            //if (i==0){
-//               // System.out.print(arr[i]);
-//            ///} else {
-//          //      System.out.print(", "+arr[i]);
-//            //}
-//        //}
-//        for (int number : arr){
-//            log(number);
-//        }
-//        //mySout("}");
-//    }
 
     /**
      * printing array with prefix
      * @param arr - array for printing
      */
-    public void log(int[][] arr) throws LoggerException{
-        switchState(this.emptyBufferState);
+    public void log(int[][] arr){
         for (int[] simpleArray : arr){
             log(simpleArray);
         }
     }
 
-//    /**
-//     * printing array
-//     * @param arr - array for log
-//     * @param isPrefixShouldBePrinted - if true, printing with prefix
-//     */
-//    public void log(int[][] arr,boolean isPrefixShouldBePrinted) throws LoggerException{
-//        switchState(this.emptyBufferState);
-//        if (isPrefixShouldBePrinted){
-//            System.out.print("primitives matrix: ");
-//        }
-//        mySout("{");
-//        for (int[] x : arr){
-//            log(x,false);
-//        }
-//        mySout("}");
-//    }
+
 
     /**
      * printing array with prefix
      * @param arr - array for printing
      */
-    public  void log(int[][][][] arr) throws LoggerException{
-//        switchState(this.emptyBufferState);
-//        //StringBuilder stringBuilder = new StringBuilder(PRIMITIVES_MULTIMATRIX);
-//        mySout(PRIMITIVES_MULTIMATRIX);
-//        for (int[][][] x : arr){
-//            mySout("{");
-//            //stringBuilder.append("{");
-//            for (int[][] y : x){
-//                log(y,false);
-//            }
-//            mySout("}");
-//        }
-//        mySout("}");
+    public  void log(int[][][][] arr){
         for (int[][][] treeDimensionArray : arr){
             for (int[][] twoDimensionArray : treeDimensionArray){
                 log(twoDimensionArray);
@@ -224,14 +171,12 @@ public class Logger {
     /**
      * cleaning buffers and links
      */
-    public void close() throws LoggerException{
-        if (this.currerntState != null){
-            this.currerntState.close();
-        }
+    public void close(){
+        this.currerntState.close();
     }
 
 
-    private void switchState(State state) throws LoggerException{
+    private void switchState(State state){
         if (this.currerntState == state){
             return;
         }

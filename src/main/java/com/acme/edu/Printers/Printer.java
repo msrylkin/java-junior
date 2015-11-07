@@ -1,6 +1,4 @@
-package com.acme.edu;
-
-import java.io.IOException;
+package com.acme.edu.printers;
 
 /**
  * Prints our data to somewhere

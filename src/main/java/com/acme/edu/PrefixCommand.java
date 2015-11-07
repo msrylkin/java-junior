@@ -1,5 +1,9 @@
 package com.acme.edu;
 
+import com.acme.edu.printers.Printer;
+import com.acme.edu.printers.PrinterException;
+import com.acme.edu.states.State;
+
 /**
  * Created by user on 03.11.2015.
  */
@@ -9,7 +13,7 @@ public class PrefixCommand extends FormatCommand{
     private State state;
     private Printer printer;
 
-    public PrefixCommand(String prefix, String message, State state, Printer printer) throws PrinterException{
+    public PrefixCommand(String prefix, String message, State state, Printer printer) throws PrinterException {
         this.prefix = prefix;
         this.message = message;
         this.state = state;

@@ -1,4 +1,6 @@
-package com.acme.edu;
+package com.acme.edu.printers;
+
+import com.acme.edu.logger.LoggerException;
 
 /**
  * Created by user on 06.11.2015.
