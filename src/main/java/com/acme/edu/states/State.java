@@ -36,7 +36,7 @@ public abstract class State {
                 item.close();
             } catch (PrinterException e) {
                 System.err.println("Error at closing " + item.getClass().getSimpleName());
-                //e.printStackTrace();
+                e.printStackTrace();
                 it.remove();
             }
         }

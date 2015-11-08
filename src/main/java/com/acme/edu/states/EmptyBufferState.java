@@ -36,7 +36,7 @@ public class EmptyBufferState extends State {
                 item.print(message);
             } catch (PrinterException e) {
                 System.err.println("Error at printing message in " + item.getClass().getSimpleName());
-                //e.printStackTrace();
+                e.printStackTrace();
                 it.remove();
             }
         }

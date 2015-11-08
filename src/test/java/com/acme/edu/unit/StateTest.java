@@ -3,6 +3,7 @@ package com.acme.edu.unit;
 import com.acme.edu.logger.Logger;
 import com.acme.edu.logger.LoggerException;
 import com.acme.edu.printers.Printer;
+import com.acme.edu.printers.PrinterException;
 import com.acme.edu.states.IntState;
 import com.acme.edu.states.State;
 import com.acme.edu.states.StringState;
@@ -30,7 +31,7 @@ public class StateTest {
     }
 
     @Test
-    public void shouldPrintWhenIntBufferOverFLow() throws LoggerException{
+    public void shouldPrintWhenIntBufferOverFLow() throws PrinterException{
         intState.log(String.valueOf(Integer.MAX_VALUE));
         intState.log("1");
 
@@ -38,7 +39,7 @@ public class StateTest {
     }
 
     @Test
-    public void shouldConcatStrings() throws  LoggerException{
+    public void shouldConcatStrings() throws PrinterException{
         stringState.log("asd");
         stringState.log("asd");
         stringState.log("asd");
@@ -48,14 +49,14 @@ public class StateTest {
     }
 
     @Test
-    public void shouldNotCallPrinter() throws LoggerException{
+    public void shouldNotCallPrinter() throws PrinterException{
         stringState.clearBuffer();
 
         verify(printerMock, times(0)).print("");
     }
 
     @Test (expected = NullPointerException.class)
-    public void shouldThrowNPE() throws LoggerException{
+    public void shouldThrowNPE() throws PrinterException{
         State sut = new IntState(null);
         sut.clearBuffer();
     }

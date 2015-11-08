@@ -57,7 +57,7 @@ public class IntState extends State {
                 item.print(buffer+"");
             } catch (PrinterException e) {
                 System.err.println("Error at printing message in " + item.getClass().getSimpleName());
-                //e.printStackTrace();
+                e.printStackTrace();
                 it.remove();
             }
         }
