@@ -1,6 +1,6 @@
 package com.acme.edu.states;
 
-import com.acme.edu.printers.Printer;
+import com.acme.edu.printer.Printer;
 
 /**
  * Factory of our states

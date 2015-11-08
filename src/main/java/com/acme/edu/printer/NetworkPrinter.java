@@ -1,4 +1,4 @@
-package com.acme.edu.printers;
+package com.acme.edu.printer;
 
 import java.io.BufferedWriter;
 

@@ -1,8 +1,8 @@
 package com.acme.edu.states;
 
 
-import com.acme.edu.printers.Printer;
-import com.acme.edu.printers.PrinterException;
+import com.acme.edu.printer.Printer;
+import com.acme.edu.printer.PrinterException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

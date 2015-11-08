@@ -8,6 +8,13 @@ import java.net.Socket;
  * Example server for NetworkPrinter
  */
 public class PrinterServer {
+    private PrinterServer() {
+    }
+
+    /**
+     * method to start local server
+     * @param args - arguments of server
+     */
     public static void main(String[] args) {
         try (
                 ServerSocket serverSocket = new ServerSocket(6666)

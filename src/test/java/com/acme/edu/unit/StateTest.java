@@ -3,8 +3,8 @@ package com.acme.edu.unit;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.logger.Logger;
 import com.acme.edu.logger.LoggerException;
-import com.acme.edu.printers.Printer;
-import com.acme.edu.printers.PrinterException;
+import com.acme.edu.printer.Printer;
+import com.acme.edu.printer.PrinterException;
 import com.acme.edu.states.EmptyBufferState;
 import com.acme.edu.states.IntState;
 import com.acme.edu.states.State;
@@ -91,7 +91,7 @@ public class StateTest implements SysoutCaptureAndAssertionAbility{
         stringState.close();
 
         assertSyserrContains("Error at printing message in");
-        assertSyserrContains("com.acme.edu.printers.PrinterException");
+        assertSyserrContains("com.acme.edu.printer.PrinterException");
     }
 
     @Test
@@ -103,7 +103,7 @@ public class StateTest implements SysoutCaptureAndAssertionAbility{
         stringState.close();
 
         assertSyserrContains("Error at printing message in");
-        assertSyserrContains("com.acme.edu.printers.PrinterException");
+        assertSyserrContains("com.acme.edu.printer.PrinterException");
 
     }
 
@@ -116,6 +116,6 @@ public class StateTest implements SysoutCaptureAndAssertionAbility{
         emptyBufferState.close();
 
         assertSyserrContains("Error at printing message in");
-        assertSyserrContains("com.acme.edu.printers.PrinterException");
+        assertSyserrContains("com.acme.edu.printer.PrinterException");
     }
 }

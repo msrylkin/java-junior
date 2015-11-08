@@ -1,7 +1,7 @@
 package com.acme.edu.states;
 
-import com.acme.edu.printers.Printer;
-import com.acme.edu.printers.PrinterException;
+import com.acme.edu.printer.Printer;
+import com.acme.edu.printer.PrinterException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +25,7 @@ public abstract class State {
     public abstract void clearBuffer();
 
     /**
-     * closing States and printers streams
+     * closing States and printer streams
      */
     public void close(){
         clearBuffer();

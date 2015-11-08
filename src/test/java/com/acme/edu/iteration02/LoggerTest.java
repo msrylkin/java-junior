@@ -3,7 +3,7 @@ package com.acme.edu.iteration02;
 import com.acme.edu.*;
 import com.acme.edu.logger.Logger;
 import com.acme.edu.logger.LoggerException;
-import com.acme.edu.printers.ConsolePrinter;
+import com.acme.edu.printer.ConsolePrinter;
 import com.acme.edu.states.StateFactory;
 import org.junit.Ignore;
 import org.junit.After;

@@ -1,7 +1,7 @@
 package com.acme.edu.states;
 
-import com.acme.edu.printers.Printer;
-import com.acme.edu.printers.PrinterException;
+import com.acme.edu.printer.Printer;
+import com.acme.edu.printer.PrinterException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +17,8 @@ public class IntState extends State {
     private int buffer;
 
     /**
-     * Constructor with printers
-     * @param printers - printers
+     * Constructor with printer
+     * @param printers - printer
      */
     public IntState(Printer... printers) {
         this.printers = new ArrayList<Printer>(Arrays.asList(printers));

@@ -2,7 +2,7 @@ package com.acme.edu.unit;
 
 import com.acme.edu.logger.Logger;
 import com.acme.edu.logger.LoggerException;
-import com.acme.edu.printers.Printer;
+import com.acme.edu.printer.Printer;
 import com.acme.edu.states.EmptyBufferState;
 import com.acme.edu.states.IntState;
 import com.acme.edu.states.StateFactory;
