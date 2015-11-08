@@ -3,7 +3,7 @@ package com.acme.edu.states;
 import com.acme.edu.printers.Printer;
 
 /**
- * Created by user on 05.11.2015.
+ * Factory of our states
  */
 public class StateFactory {
     /**

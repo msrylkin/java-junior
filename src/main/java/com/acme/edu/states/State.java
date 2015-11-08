@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * State
+ * Abstract class of our States
  */
 public abstract class State {
     protected List<Printer> printers;

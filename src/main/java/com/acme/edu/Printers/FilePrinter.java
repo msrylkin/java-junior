@@ -3,54 +3,34 @@ package com.acme.edu.printers;
 import java.io.*;
 
 /**
- * Created by user on 06.11.2015.
+ * Printer which print data to file
  */
 public class FilePrinter implements Printer {
+    /**
+     * private local var's
+     */
     private BufferedWriter writer;
     private int messageCounter = 0;
 
-//    public FilePrinter() throws PrinterException{
-//        try {
-//            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("temp.txt")));
-//        } catch (IOException e) {
-////            throw new PrinterException("ERROR CREATING PRINTER!",e);
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public FilePrinter(String filename) throws PrinterException{
-//        try {
-//            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename,true)));
-//        } catch (IOException e) {
-//            try {
-//                writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("temp.txt")));
-//            } catch (IOException e1) {
-////                throw new PrinterException("ERROR CREATING PRINTER!",e1);
-//                e1.printStackTrace();
-//            }
-//        }
-//    }
-
+    /**
+     * Constructor
+     * @param filename - name/path of the file
+     * @param charset - chars encoding
+     */
     public FilePrinter(String filename, String charset) {
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename,true),charset));
         } catch (Exception e){
-            //throw new PrinterException("Error at creating File printer",e);
             System.err.println("Error at creating "+this.getClass().getSimpleName());
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void close() throws PrinterException{
-        try {
-            writer.close();
-        } catch (Exception e) {
-            throw new PrinterException("Error at closing File printer!",e);
-        }
-
-    }
-
+    /**
+     * prints message to file
+     * @param message - data
+     * @throws PrinterException - throw exception if something wrong
+     */
     @Override
     public void print(String message) throws PrinterException{
         try {
@@ -64,5 +44,19 @@ public class FilePrinter implements Printer {
         } catch (Exception e) {
             throw new PrinterException("Error at printing message in File printer!",e);
         }
+    }
+
+    /**
+     * closing FileWriter stream
+     * @throws PrinterException - if something wrong, throw exception
+     */
+    @Override
+    public void close() throws PrinterException{
+        try {
+            writer.close();
+        } catch (Exception e) {
+            throw new PrinterException("Error at closing File printer!",e);
+        }
+
     }
 }

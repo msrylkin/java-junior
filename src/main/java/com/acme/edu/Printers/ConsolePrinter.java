@@ -15,8 +15,13 @@ public class ConsolePrinter implements Printer {
         System.out.println(message);
     }
 
+    /**
+     * useless method
+     */
     @Override
     public void close(){
-
+        /*
+        nothing to do here
+         */
     }
 }

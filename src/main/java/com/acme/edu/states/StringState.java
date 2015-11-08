@@ -3,13 +3,15 @@ package com.acme.edu.states;
 
 import com.acme.edu.printers.Printer;
 import com.acme.edu.printers.PrinterException;
-import com.acme.edu.states.State;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
+/**
+ * State if we printing String variable
+ */
 public class StringState extends State {
     /**
      * Buffer var's
@@ -24,13 +26,7 @@ public class StringState extends State {
      */
     public StringState(Printer... printers) {
         this.printers = new ArrayList<Printer>(Arrays.asList(printers));
-//        for (Printer printer : printers){
-//            this.printers.add(printer);
-//        }
-        //this.printer = printer;
     }
-
-
 
     /**
      * Printing or sum
@@ -61,8 +57,9 @@ public class StringState extends State {
 
     }
 
-
-
+    /**
+     * prints our buffer
+     */
     private void print() {
         Iterator<Printer> it = this.printers.iterator();
         while (it.hasNext()){
@@ -79,19 +76,6 @@ public class StringState extends State {
                 it.remove();
             }
         }
-//        for (Printer printer : this.printers){
-//            try {
-//                if (strCounter==1){
-//                    printer.print(this.buffer);}
-//                else {
-//                    printer.print(this.buffer+" (x"+this.strCounter+")");
-//                }
-//            } catch (PrinterException e) {
-//                System.err.println("Error at printing message in " + printer.getClass().getSimpleName());
-//                e.printStackTrace();
-//                this.printers.remove(printer);
-//            }
-//        }
     }
 
 }

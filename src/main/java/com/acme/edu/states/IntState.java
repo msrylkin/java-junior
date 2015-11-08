@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by user on 02.11.2015.
+ * State, if we printing ints. It will sum and print as sum
  */
 public class IntState extends State {
     /**
@@ -23,11 +23,7 @@ public class IntState extends State {
      */
     public IntState(Printer... printers) {
         this.printers = new ArrayList<Printer>(Arrays.asList(printers));
-//        for (Printer printer : printers){
-//            this.printers.add(printer);
-//        }
     }
-
 
 
     /**

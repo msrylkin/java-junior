@@ -10,5 +10,9 @@ public interface Printer {
      */
     void print(String message) throws PrinterException;
 
+    /**
+     * closing all writer streams
+     * @throws PrinterException - exception if something wrong
+     */
     void close() throws PrinterException;
 }

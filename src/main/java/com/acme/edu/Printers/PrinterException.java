@@ -1,9 +1,9 @@
 package com.acme.edu.printers;
 
-import com.acme.edu.logger.LoggerException;
+
 
 /**
- * Created by user on 06.11.2015.
+ * Exception if something wrong at creating printer, printing message or closing our printer
  */
 public class PrinterException extends Exception {
     public PrinterException() {

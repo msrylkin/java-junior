@@ -9,10 +9,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * State, if our buffer is empty
+ */
 public class EmptyBufferState extends State {
-    /**
-     * local variable for printer
-     */
 
 
     /**
@@ -43,13 +43,14 @@ public class EmptyBufferState extends State {
     }
 
 
-
     /**
      * useless method
      */
     @Override
     public void clearBuffer(){
-
+        /*
+        nothing to do here
+         */
     }
 
 

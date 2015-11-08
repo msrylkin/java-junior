@@ -7,25 +7,37 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 /**
- * Created by user on 06.11.2015.
+ * Printer which prints data to remote server
  */
 public class NetworkPrinter implements Printer {
+    /**
+     * local var's
+     */
     private Socket socket;
     private BufferedWriter bw;
     private int messageCounter = 0;
 
+    /**
+     * Constructor
+     * @param host - hostname/ip
+     * @param port - port
+     * @param charSet - chars encoding
+     */
     public NetworkPrinter(String host, int port, String charSet){
         try {
             this.socket = new Socket(host, port);
             this.bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),charSet));
-            //throw new PrinterException("Asd");
         } catch (Exception e){
-            //throw new PrinterException("Error at creating Network printer",e);
             System.err.println("Error at creating"+this.getClass().getSimpleName());
             e.printStackTrace();
         }
     }
 
+    /**
+     * prints message to remote server
+     * @param message - data
+     * @throws PrinterException - if something wrong throw exception
+     */
     @Override
     public void print(String message) throws PrinterException{
         try {
@@ -40,6 +52,10 @@ public class NetworkPrinter implements Printer {
         }
     }
 
+    /**
+     * closing remote connection
+     * @throws PrinterException - if something wrong throw exception
+     */
     @Override
     public void close() throws PrinterException{
         try {
