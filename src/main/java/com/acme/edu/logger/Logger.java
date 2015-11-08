@@ -3,6 +3,7 @@ package com.acme.edu.logger;
 
 import com.acme.edu.printers.ConsolePrinter;
 import com.acme.edu.printers.FilePrinter;
+import com.acme.edu.printers.NetworkPrinter;
 import com.acme.edu.states.*;
 
 public class Logger{
@@ -11,8 +12,8 @@ public class Logger{
         Logger logger = new Logger
                 (new StateFactory(
                         new ConsolePrinter(),
-                        new FilePrinter("W:?","UTF-8")));
-                        //,new NetworkPrinter("127.0.0.1",6666,"UTF-8")));
+                        new FilePrinter("W:?","UTF-8"),
+                        new NetworkPrinter("127.0.0.1",6666,"UTF-8")));
         logger.log('a');
         logger.log(123);
         logger.log(123);

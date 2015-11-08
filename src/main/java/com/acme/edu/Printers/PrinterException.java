@@ -5,7 +5,7 @@ import com.acme.edu.logger.LoggerException;
 /**
  * Created by user on 06.11.2015.
  */
-public class PrinterException extends LoggerException {
+public class PrinterException extends Exception {
     public PrinterException() {
     }
 

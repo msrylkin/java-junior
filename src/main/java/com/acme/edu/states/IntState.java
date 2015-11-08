@@ -11,12 +11,11 @@ import java.util.List;
 /**
  * Created by user on 02.11.2015.
  */
-public class IntState implements State {
+public class IntState extends State {
     /**
      * Buffer var's
      */
     private int buffer;
-    private List<Printer> printers;
 
     /**
      * Constructor with printers
@@ -58,44 +57,12 @@ public class IntState implements State {
                 item.print(buffer+"");
             } catch (PrinterException e) {
                 System.err.println("Error at printing message in " + item.getClass().getSimpleName());
-                e.printStackTrace();
+                //e.printStackTrace();
                 it.remove();
             }
         }
-//        for (Printer printer : this.printers){
-//            try {
-//                printer.print(buffer+"");
-//            } catch (PrinterException e) {
-//                System.err.println("Error at printing message in " + printer.getClass().getSimpleName());
-//                e.printStackTrace();
-//                this.printers.remove(printer);
-//            }
-//        }
         buffer = 0;
-
     }
 
-    public void close(){
-        clearBuffer();
-        Iterator<Printer> it = this.printers.iterator();
-        while (it.hasNext()){
-            Printer item = it.next();
-            try {
-                item.close();
-            } catch (PrinterException e) {
-                System.err.println("Error at closing "+item.getClass().getSimpleName());
-                e.printStackTrace();
-                it.remove();
-            }
-        }
-//        for (Printer printer : this.printers){
-//            try {
-//                printer.close();
-//            } catch (PrinterException e) {
-//                System.err.println("Error at closing " + printer.getClass().getSimpleName());
-//                e.printStackTrace();
-//                this.printers.remove(printer);
-//            }
-//        }
-    }
+
 }

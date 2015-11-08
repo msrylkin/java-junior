@@ -10,11 +10,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class StringState implements State {
+public class StringState extends State {
     /**
      * Buffer var's
      */
-    private List<Printer> printers;
+
     private int strCounter = 0;
     private String buffer = null;
 
@@ -37,7 +37,7 @@ public class StringState implements State {
      * @param message - message for printing
      */
     @Override
-    public void log(String message){
+    public void log(String message) {
         if (message.equals(buffer)){
             strCounter++;
         } else {
@@ -61,29 +61,7 @@ public class StringState implements State {
 
     }
 
-    public void close(){
-        clearBuffer();
-        Iterator<Printer> it = this.printers.iterator();
-        while (it.hasNext()){
-            Printer item = it.next();
-            try {
-                item.close();
-            } catch (PrinterException e) {
-                System.err.println("Error at closing " + item.getClass().getSimpleName());
-                e.printStackTrace();
-                it.remove();
-            }
-        }
-//        for (Printer printer : this.printers){
-//            try {
-//                printer.close();
-//            } catch (PrinterException e) {
-//                System.err.println("Error at closing " + printer.getClass().getSimpleName());
-//                e.printStackTrace();
-//                this.printers.remove(printer);
-//            }
-//        }
-    }
+
 
     private void print() {
         Iterator<Printer> it = this.printers.iterator();
@@ -97,7 +75,7 @@ public class StringState implements State {
                 }
             } catch (PrinterException e) {
                 System.err.println("Error at printing message in " + item.getClass().getSimpleName());
-                e.printStackTrace();
+                //e.printStackTrace();
                 it.remove();
             }
         }

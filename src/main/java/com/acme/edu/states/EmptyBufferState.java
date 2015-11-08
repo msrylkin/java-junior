@@ -9,11 +9,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class EmptyBufferState implements State {
+public class EmptyBufferState extends State {
     /**
      * local variable for printer
      */
-    private List<Printer> printers;
+
 
     /**
      * constructor
@@ -21,10 +21,6 @@ public class EmptyBufferState implements State {
      */
     public EmptyBufferState(Printer... printers) {
         this.printers = new ArrayList<Printer>(Arrays.asList(printers));
-//        for (Printer printer : printers){
-
-//            this.printers.add(printer);
-//        }
     }
 
     /**
@@ -40,20 +36,10 @@ public class EmptyBufferState implements State {
                 item.print(message);
             } catch (PrinterException e) {
                 System.err.println("Error at printing message in " + item.getClass().getSimpleName());
-                e.printStackTrace();
+                //e.printStackTrace();
                 it.remove();
             }
         }
-//        for (Printer printer : this.printers){
-//            try {
-//                printer.print(message);
-//            } catch (PrinterException e) {
-//                System.err.println("Error at printing message in" + printer.getClass().getSimpleName());
-//                e.printStackTrace();
-//                this.printers.remove(printer);
-//            }
-//        }
-        //this.printer.print(message);
     }
 
 
@@ -66,27 +52,5 @@ public class EmptyBufferState implements State {
 
     }
 
-    public void close(){
-        clearBuffer();
-        Iterator<Printer> it = this.printers.iterator();
-//        for (Printer printer : this.printers){
-//            try {
-//                printer.close();
-//            } catch (PrinterException e) {
-//                System.err.println("Error at printing message in" + printer.getClass().getSimpleName());
-//                e.printStackTrace();
-//                this.printers.remove(printer);
-//            }
-//        }
-        while (it.hasNext()){
-            Printer item = it.next();
-            try {
-                item.close();
-            } catch (PrinterException e) {
-                System.err.println("Error at printing message in" + item.getClass().getSimpleName());
-                e.printStackTrace();
-                it.remove();
-            }
-        }
-    }
+
 }
