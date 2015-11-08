@@ -29,12 +29,12 @@ public class StateTest implements SysoutCaptureAndAssertionAbility{
 
     @Before
     public void setUpTest() throws LoggerException {
+        captureSyserr();
         printerMock = mock(Printer.class);
         intState = new IntState(printerMock);
         stringState = new StringState(printerMock);
         emptyBufferState = new EmptyBufferState(printerMock);
         loggerMock = mock(Logger.class);
-        captureSyserr();
     }
 
     @After
@@ -48,6 +48,15 @@ public class StateTest implements SysoutCaptureAndAssertionAbility{
         intState.log("1");
 
         verify(printerMock).print(String.valueOf(Integer.MAX_VALUE));
+    }
+
+    @Test
+    public void shouldPrintWhenBufferOverFLowAtNegativeNumbers() throws PrinterException{
+        intState.log(String.valueOf(Integer.MIN_VALUE));
+        intState.log(String.valueOf("-1"));
+
+
+        verify(printerMock).print(String.valueOf(Integer.MIN_VALUE));
     }
 
     @Test
@@ -114,6 +123,28 @@ public class StateTest implements SysoutCaptureAndAssertionAbility{
 
         emptyBufferState.log(dummy+"");
         emptyBufferState.close();
+
+        assertSyserrContains("Error at printing message in");
+        assertSyserrContains("com.acme.edu.printer.PrinterException");
+    }
+
+    @Test
+    public void shouldCatchExceptionInState() throws PrinterException{
+        doThrow(PrinterException.class).when(printerMock).close();
+
+        emptyBufferState.close();
+
+        assertSyserrContains("Error at closing");
+        assertSyserrContains("com.acme.edu.printer.PrinterException");
+    }
+
+    @Test
+    public void shouldCatchExceptionInIntStateAtCleaningBuffer() throws PrinterException{
+        String dummyData = "123";
+        doThrow(PrinterException.class).when(printerMock).print(dummyData);
+
+        intState.log(dummyData);
+        intState.clearBuffer();
 
         assertSyserrContains("Error at printing message in");
         assertSyserrContains("com.acme.edu.printer.PrinterException");

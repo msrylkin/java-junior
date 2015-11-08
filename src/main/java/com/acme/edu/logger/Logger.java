@@ -1,6 +1,7 @@
 package com.acme.edu.logger;
 
 
+import com.acme.edu.printer.ConsolePrinter;
 import com.acme.edu.states.*;
 
 /**
