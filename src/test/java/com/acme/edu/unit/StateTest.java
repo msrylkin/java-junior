@@ -1,24 +1,29 @@
 package com.acme.edu.unit;
 
+import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.logger.Logger;
 import com.acme.edu.logger.LoggerException;
 import com.acme.edu.printers.Printer;
 import com.acme.edu.printers.PrinterException;
+import com.acme.edu.states.EmptyBufferState;
 import com.acme.edu.states.IntState;
 import com.acme.edu.states.State;
 import com.acme.edu.states.StringState;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 
 /**
  * Created by user on 04.11.2015.
  */
-public class StateTest {
+public class StateTest implements SysoutCaptureAndAssertionAbility{
 
     private IntState intState;
     private StringState stringState;
+    private EmptyBufferState emptyBufferState;
     private Logger loggerMock;
     private Printer printerMock;
 
@@ -27,7 +32,14 @@ public class StateTest {
         printerMock = mock(Printer.class);
         intState = new IntState(printerMock);
         stringState = new StringState(printerMock);
+        emptyBufferState = new EmptyBufferState(printerMock);
         loggerMock = mock(Logger.class);
+        captureSyserr();
+    }
+
+    @After
+    public void tearDown(){
+        resetErr();
     }
 
     @Test
@@ -49,6 +61,15 @@ public class StateTest {
     }
 
     @Test
+    public void shouldLogInstantlyLogPrimitives() throws PrinterException{
+        emptyBufferState.log('a'+"");
+        emptyBufferState.log('a'+"");
+        emptyBufferState.log('a'+"");
+
+        verify(printerMock, times(3)).print("a");
+    }
+
+    @Test
     public void shouldNotCallPrinter() throws PrinterException{
         stringState.clearBuffer();
 
@@ -59,5 +80,42 @@ public class StateTest {
     public void shouldThrowNPE() throws PrinterException{
         State sut = new IntState(null);
         sut.clearBuffer();
+    }
+
+    @Test
+    public void shouldCatchPrinterExceptionInStringState() throws PrinterException{
+        String dummyMessage = "test";
+        Mockito.doThrow(PrinterException.class).when(printerMock).print(dummyMessage);
+
+        stringState.log(dummyMessage);
+        stringState.close();
+
+        assertSyserrContains("Error at printing message in");
+        assertSyserrContains("com.acme.edu.printers.PrinterException");
+    }
+
+    @Test
+    public void shouldCatchPrinterExceptionInIntState() throws PrinterException{
+        int dummyInt = 123;
+        Mockito.doThrow(PrinterException.class).when(printerMock).print(dummyInt+"");
+
+        stringState.log(dummyInt+"");
+        stringState.close();
+
+        assertSyserrContains("Error at printing message in");
+        assertSyserrContains("com.acme.edu.printers.PrinterException");
+
+    }
+
+    @Test
+    public void shouldCatchExceptionInEmptyBufferState() throws PrinterException{
+        char dummy = 'a';
+        doThrow(PrinterException.class).when(printerMock).print(dummy+"");
+
+        emptyBufferState.log(dummy+"");
+        emptyBufferState.close();
+
+        assertSyserrContains("Error at printing message in");
+        assertSyserrContains("com.acme.edu.printers.PrinterException");
     }
 }

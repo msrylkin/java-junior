@@ -1,27 +1,13 @@
 package com.acme.edu.logger;
 
 
-import com.acme.edu.printers.ConsolePrinter;
-import com.acme.edu.printers.FilePrinter;
-import com.acme.edu.printers.NetworkPrinter;
 import com.acme.edu.states.*;
 
+/**
+ * our Logger class. Prints message to special printer
+ */
 public class Logger{
 
-    public static void main(String[] args){
-        Logger logger = new Logger
-                (new StateFactory(
-                        new ConsolePrinter(),
-                        new FilePrinter("W:?","UTF-8"),
-                        new NetworkPrinter("127.0.0.1",6666,"UTF-8")));
-        logger.log('a');
-        logger.log(123);
-        logger.log(123);
-        logger.log("asd");
-        logger.log("asd");
-        logger.log(123);
-        logger.close();
-    }
 
     /**
      * String constants
@@ -129,7 +115,6 @@ public class Logger{
     public void log(Object object){
         switchState(this.emptyBufferState);
         this.currerntState.log(REFERENCE_PREFIX + object);
-        //mySout(REFERENCE_PREFIX + object.toString());
     }
 
 

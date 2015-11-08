@@ -7,7 +7,6 @@ import com.acme.edu.printers.PrinterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * State, if our buffer is empty
