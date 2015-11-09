@@ -3,6 +3,7 @@ package server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 
 /**
  * Example server for NetworkPrinter
@@ -29,6 +30,5 @@ public class PrinterServer {
     } catch (IOException e){
             e.printStackTrace();
         }
-
     }
 }

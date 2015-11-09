@@ -2,15 +2,14 @@ package com.acme.edu.printer;
 
 import java.io.*;
 
+
 /**
  * Printer which print data to file
  */
-public class FilePrinter implements Printer {
-    /**
-     * private local var's
-     */
-    private BufferedWriter writer;
-    private int messageCounter = 0;
+public class FilePrinter extends Printer {
+
+
+
 
     /**
      * Constructor
@@ -31,20 +30,7 @@ public class FilePrinter implements Printer {
      * @param message - data
      * @throws PrinterException - throw exception if something wrong
      */
-    @Override
-    public void print(String message) throws PrinterException{
-        try {
-            if (messageCounter == 50){
-                writer.flush();
-                messageCounter = 0;
-            }
-            writer.write(message);
-            writer.newLine();
-            messageCounter++;
-        } catch (Exception e) {
-            throw new PrinterException("Error at printing message in File printer!",e);
-        }
-    }
+
 
     /**
      * closing FileWriter stream
@@ -53,6 +39,7 @@ public class FilePrinter implements Printer {
     @Override
     public void close() throws PrinterException{
         try {
+            flush();
             writer.close();
         } catch (Exception e) {
             throw new PrinterException("Error at closing File printer!",e);

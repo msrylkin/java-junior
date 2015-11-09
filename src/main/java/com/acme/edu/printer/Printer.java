@@ -1,18 +1,58 @@
 package com.acme.edu.printer;
 
+import java.io.BufferedWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Prints our data to somewhere
  */
-public interface Printer {
+public abstract class Printer {
+    protected List<String> buffer = new ArrayList<>();
+    protected BufferedWriter writer;
+    protected int messageCounter = 0;
     /**
      * Print something to somewhere
      * @param message - data
      */
-    void print(String message) throws PrinterException;
+
+    public void print(String message) throws PrinterException{
+        if (messageCounter==50){
+            flush();
+        }
+        buffer.add(message);
+        messageCounter++;
+    }
 
     /**
      * closing all writer streams
      * @throws PrinterException - exception if something wrong
      */
-    void close() throws PrinterException;
+    public abstract void close() throws PrinterException;
+
+    /**
+     * clear local buffer and outStreams
+     * @throws PrinterException
+     */
+    protected void flush() throws PrinterException{
+        try {
+            Collections.sort(buffer, (o1, o2) -> {
+                if (o1.contains("ERROR") && o2.contains("ERROR"))
+                    return 0;
+                if (o1.contains("ERROR"))
+                    return -1;
+                return 1;
+            });
+            messageCounter = 0;
+            for (String element : buffer){
+                writer.write(element);
+                writer.newLine();
+            }
+            writer.flush();
+            buffer.clear();
+        } catch (Exception e) {
+            throw new PrinterException("Error at printing message in File printer!",e);
+        }
+    }
 }

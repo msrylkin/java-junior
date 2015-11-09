@@ -1,8 +1,10 @@
 package com.acme.edu.logger;
 
 
-import com.acme.edu.printer.ConsolePrinter;
+
 import com.acme.edu.states.*;
+
+
 
 /**
  * our Logger class. Prints message to special printer

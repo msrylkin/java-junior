@@ -41,5 +41,12 @@ public class PrinterTest implements SysoutCaptureAndAssertionAbility {
         resetErr();
     }
 
-
+//    @Test
+//    public void shouldlogWhenMessagesOver50() {
+//        for (int i=1;i<52;i++){
+//            consolePrinter.print(i+"");
+//        }
+//
+//
+//    }
 }
