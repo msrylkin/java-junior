@@ -30,7 +30,6 @@ public class PrinterTest implements SysoutCaptureAndAssertionAbility {
     private Logger mockLogger;
 
 
-    @Rule
 
     @Before
     public void setUpTest() throws LoggerException {
