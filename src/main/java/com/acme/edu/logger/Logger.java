@@ -2,6 +2,7 @@ package com.acme.edu.logger;
 
 
 
+import com.acme.edu.printer.NetworkPrinter;
 import com.acme.edu.states.*;
 
 
@@ -11,6 +12,28 @@ import com.acme.edu.states.*;
  */
 public class Logger{
 
+    public static void main(String[] args) {
+        Logger logger = new Logger(new StateFactory(
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8"),
+                new NetworkPrinter("127.0.0.1",6666,"UTF-8")));
+        logger.log("asd");
+        logger.log("asd");
+        logger.log("ERROR");
+        logger.log("asd");
+        logger.log(123);
+        logger.log(123);
+        logger.log("ERROR-123");
+        logger.log('a');
+        logger.close();
+    }
 
     /**
      * String constants

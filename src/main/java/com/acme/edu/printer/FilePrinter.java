@@ -9,8 +9,6 @@ import java.io.*;
 public class FilePrinter extends Printer {
 
 
-
-
     /**
      * Constructor
      * @param filename - name/path of the file
@@ -24,13 +22,6 @@ public class FilePrinter extends Printer {
             e.printStackTrace();
         }
     }
-
-    /**
-     * prints message to file
-     * @param message - data
-     * @throws PrinterException - throw exception if something wrong
-     */
-
 
     /**
      * closing FileWriter stream

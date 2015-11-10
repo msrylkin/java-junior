@@ -12,6 +12,13 @@ public abstract class Printer {
     protected List<String> buffer = new ArrayList<>();
     protected BufferedWriter writer;
     protected int messageCounter = 0;
+
+    /**
+     * closing all writer streams
+     * @throws PrinterException - exception if something wrong
+     */
+    public abstract void close() throws PrinterException;
+
     /**
      * Print something to somewhere
      * @param message - data
@@ -24,12 +31,6 @@ public abstract class Printer {
         buffer.add(message);
         messageCounter++;
     }
-
-    /**
-     * closing all writer streams
-     * @throws PrinterException - exception if something wrong
-     */
-    public abstract void close() throws PrinterException;
 
     /**
      * clear local buffer and outStreams
