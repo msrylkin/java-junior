@@ -25,11 +25,11 @@ public abstract class Printer {
      */
 
     public void print(String message) throws PrinterException{
+        buffer.add(message);
+        messageCounter++;
         if (messageCounter==50){
             flush();
         }
-        buffer.add(message);
-        messageCounter++;
     }
 
     /**

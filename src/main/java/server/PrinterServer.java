@@ -37,7 +37,7 @@ public class PrinterServer {
                         while ((data = br.readLine()) != null) {
                             System.out.println(">>>>> \"" + data + "\" ==> " + Thread.currentThread().getId());
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     //throw new IllegalArgumentException("asd");
@@ -50,6 +50,8 @@ public class PrinterServer {
                     } catch (ExecutionException e) {
                         ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
                         oos.writeObject(e);
+                        oos.flush();
+                        oos.close();
                     }
                 }
             }
