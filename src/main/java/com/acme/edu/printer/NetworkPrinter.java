@@ -3,6 +3,7 @@ package com.acme.edu.printer;
 import java.io.BufferedWriter;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
@@ -15,6 +16,7 @@ public class NetworkPrinter extends Printer {
      * local var's
      */
     private Socket socket;
+   // private ObjectInputStream ois;
 
     /**
      * Constructor
@@ -26,6 +28,7 @@ public class NetworkPrinter extends Printer {
         try {
             this.socket = new Socket(host, port);
             this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),charSet));
+            //this.ois = new ObjectInputStream(socket.getInputStream());
         } catch (Exception e){
             System.err.println("Error at creating"+this.getClass().getSimpleName());
             e.printStackTrace();

@@ -9,6 +9,7 @@ import java.util.List;
  * Prints our data to somewhere
  */
 public abstract class Printer {
+    public static final String ERROR_MESSAGE = "ERROR";
     protected List<String> buffer = new ArrayList<>();
     protected BufferedWriter writer;
     protected int messageCounter = 0;
@@ -39,9 +40,9 @@ public abstract class Printer {
     protected void flush() throws PrinterException{
         try {
             Collections.sort(buffer, (o1, o2) -> {
-                if (o1.contains("ERROR") && o2.contains("ERROR"))
+                if (o1.contains(ERROR_MESSAGE) && o2.contains(ERROR_MESSAGE))
                     return 0;
-                if (o1.contains("ERROR"))
+                if (o1.contains(ERROR_MESSAGE))
                     return -1;
                 return 1;
             });

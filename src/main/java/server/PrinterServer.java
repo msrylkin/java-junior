@@ -18,46 +18,66 @@ public class PrinterServer {
     private PrinterServer() {
     }
 
+
     /**
      * method to start local server
      * @param args - arguments of server
      */
     public static void main(String[] args){
         ExecutorService executorService = Executors.newFixedThreadPool(10);
+        final Object monitor = new Object();
         try (
                 ServerSocket serverSocket = new ServerSocket(6666)
         ){
-            while (true) {
-                serverSocket.setSoTimeout(10000);
+            new Thread(() -> {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                try {
+                    if (reader.readLine().equals("exit")){
+                        executorService.shutdown();
+                        if (executorService.isShutdown())
+                            serverSocket.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+            while (!executorService.isShutdown()) {
+                serverSocket.setSoTimeout(60000);
                 Socket client = serverSocket.accept();
                 Future future = executorService.submit(() -> {
                     try {
                         BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
                         String data;
                         while ((data = br.readLine()) != null) {
+                            synchronized (monitor){
                             System.out.println(">>>>> \"" + data + "\" ==> " + Thread.currentThread().getId());
+                        }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //throw new IllegalArgumentException("asd");
                 });
-                if (future.isDone()){
-                    try {
-                        future.get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
-                        oos.writeObject(e);
-                        oos.flush();
-                        oos.close();
-                    }
-                }
+//                if (future.isDone()){
+//                    try {
+//                        future.get();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
+//                        oos.writeObject(e);
+//                        oos.flush();
+//                        oos.close();
+//                    }
+//                }
             }
         } catch (IOException e){
             e.printStackTrace();
         }
         executorService.shutdown();
     }
+
+//    void waitforexit(){
+//
+//    }
+
 }
